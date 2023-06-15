@@ -1,0 +1,9 @@
+.sugg-user-container {
+    display: flex;
+}
+
+.profile-photo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}

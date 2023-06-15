@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { NavLink, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Signup from "./Pages/SignUp/Signup";
+import LandingPage from "./Pages/LandingPage/LandingPage";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Explore from "./Pages/ExplorePage/Explore";
+import Bookmark from "./Pages/BookmarkPage/Bookmark";
+import Mockman from "mockman-js";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Routes>
+                <Route path="/" element={<LandingPage />}></Route>
+                <Route path="/home" element={<Home />}></Route>
+                <Route path="/signup" element={<Signup />}>
+                    SignUp
+                </Route>
+                <Route path="/login" element={<Login />}>
+                    Login
+                </Route>
+                <Route path="/explore" element={<Explore />}>
+                    Explore
+                </Route>
+                <Route path="/bookmark" element={<Bookmark />}>
+                    Bookmark
+                </Route>
+                <Route path="/mockman" element={<Mockman />}>
+                    Bookmark
+                </Route>
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
