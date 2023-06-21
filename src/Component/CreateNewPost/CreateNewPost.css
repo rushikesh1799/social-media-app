@@ -1,0 +1,5 @@
+.new__post__container textarea {
+    max-width: 650px;
+    height: 2rem;
+    border: 1px solid black;
+}
