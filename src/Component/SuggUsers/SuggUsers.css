@@ -1,9 +1,32 @@
-.sugg-user-container {
+.sugg-user-main-container {
+    width: fit-content;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.sugg-user-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sugg-user-photo {
+    margin-right: 8px;
 }
 
 .profile-photo {
     width: 70px;
     height: 70px;
     border-radius: 50%;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-right: 8px;
 }

@@ -1,8 +1,14 @@
+.home-primary-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-around;
+}
+
 .nav-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
+
 }
 
 .nav-element {

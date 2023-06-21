@@ -1,0 +1,17 @@
+.home-primary-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-around;
+}
+
+.btns {
+    padding: 4px 8px;
+    margin: 0px 4px;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.btns:hover {
+    color: white;
+    background-color: black;
+}

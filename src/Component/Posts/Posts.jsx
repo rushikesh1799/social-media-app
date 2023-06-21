@@ -1,29 +1,62 @@
 import React, { useContext, useEffect } from "react";
+
+import "./Posts.css";
+import Post from "./Post/Post";
+import PostsFilter from "./PostsFilter/PostsFilter";
 import { DataContext } from "../../context/DataContext";
+import CreateNewPost from "../CreateNewPost/CreateNewPost";
 
-const Posts = () => {
-    const { posts, users } = useContext(DataContext);
+const Posts = ({ posts }) => {
+    const { filter } = useContext(DataContext);
 
-    const getFullName = (username) =>
-        users
-            .filter((user) => user.username === username)
-            .reduce(
-                (acc, curr) => acc + curr.firstName + " " + curr.lastName,
-                ""
-            );
+    const LatestPosts = [...posts].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
+    const olderstPosts = [...posts].sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+
+    // console.log("olderstPosts", olderstPosts);
+
+    const postsToRender =
+        filter === ""
+            ? posts
+            : filter === "all"
+            ? posts
+            : filter === "trending"
+            ? posts
+            : filter === "oldest"
+            ? olderstPosts
+            : LatestPosts;
+
+    // const postsToRender1 = () => {
+    //     switch (filter) {
+    //         case "all":
+    //             return posts;
+    //         case "trending":
+    //             return posts;
+    //         case "oldest":
+    //             return olderstPosts;
+    //         case "latest":
+    //             return LatestPosts;
+
+    //         default:
+    //             return posts;
+    //     }
+    // };
 
     // useEffect(() => {
-    //     console.log(posts);
-    // }, [posts]);
+    //     console.log("postsToRender", postsToRender);
+    // }, [postsToRender]);
 
     return (
-        <div>
-            <h1>Posts</h1>
-            {posts.map((post) => (
-                <div key={post.id}>
-                    <p>{getFullName(post.username)}</p>
-                    <span>{post.content}</span>
-                </div>
+        <div className="posts-primary-container">
+            <h1>Home Page - Posts</h1>
+            <CreateNewPost />
+            <PostsFilter />
+            {postsToRender.map((post) => (
+                <Post post={post} key={post.id} />
             ))}
         </div>
     );

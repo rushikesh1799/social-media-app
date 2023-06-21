@@ -1,0 +1,53 @@
+.posts-primary-container {
+    max-width: 700px;
+    margin: auto;
+}
+
+.post-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    border: 2px solid black;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.post-user-details {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+}
+
+.post-user {
+    display: flex;
+    flex-direction: row;
+    text-align: start;
+}
+
+.post-content {
+    text-align: start;
+}
+
+.post-btns {
+    display: flex;
+    justify-content: space-between;
+    text-align: start;
+}
+
+.like-btn,
+.comment-btn,
+.bookmark-btn {
+    margin: 0px 8px;
+    padding: 4px 8px;
+}
+
+.post-img {
+    width: 50%;
+    padding: 8px;
+}
+
+.delete-btn,
+.edit-btn {
+    margin: 0px 8px;
+    padding: 4px 8px;
+}
