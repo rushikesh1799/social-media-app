@@ -10,7 +10,6 @@ import {
     addPost,
     bookmarkPostService,
     disLikePostService,
-    followService,
     getAllBookmarks,
     getAllPosts,
     getAllUsers,
@@ -32,11 +31,10 @@ const initialState = {
 export const DataProvider = ({ children }) => {
     const [state, dispatch] = useReducer(DataReducer, initialState);
     const [loading, setLoading] = useState(false);
-    const { user, token } = useContext(AuthContext);
+    const { token } = useContext(AuthContext);
 
     // destructuring of the initialState
     const { users, posts, category, bookmarks, filter } = state;
-    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("posts", posts);
@@ -56,13 +54,13 @@ export const DataProvider = ({ children }) => {
                 });
             }
 
-            const fetchBookmarksData = await getAllBookmarks(token);
+            // const fetchBookmarksData = await getAllBookmarks(token);
             // Need to work on these getAllBookmarks result data here
             // console.log(fetchBookmarksData);
         };
 
         fetchData();
-    }, []);
+    }, [token]);
 
     const fetchAllPosts = async () => {
         const result = await getAllPosts();

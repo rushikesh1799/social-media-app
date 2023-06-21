@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import "./Home.css";
 import Navigation from "../../Component/Navigation/Navigation";
 import SuggUsers from "../../Component/SuggUsers/SuggUsers";
