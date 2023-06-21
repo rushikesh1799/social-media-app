@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import Navigation from "../../Component/Navigation/Navigation";
 import SuggUsers from "../../Component/SuggUsers/SuggUsers";

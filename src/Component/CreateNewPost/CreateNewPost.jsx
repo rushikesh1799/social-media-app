@@ -1,15 +1,13 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
 import "./CreateNewPost.css";
 import { useState } from "react";
-import { useEffect } from "react";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import { DataContext } from "../../context/DataContext";
 
 const CreateNewPost = () => {
     const [postContent, setPostContent] = useState("");
     const { handleAddPost } = useContext(DataContext);
+    
     // useEffect(() => {
     //     console.log(postContent);
     // }, [postContent]);

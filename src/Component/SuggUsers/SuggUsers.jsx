@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 
 import "./SuggUsers.css";
 
 const SuggUsers = () => {
     const { users, handleFollowUser } = useContext(DataContext);
-
-    // console.log(users);
 
     return (
         <div className="sugg-user-main-container">

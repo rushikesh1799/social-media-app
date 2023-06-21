@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 
 import Navigation from "../../Component/Navigation/Navigation";
 import { DataContext } from "../../context/DataContext";
-import Posts from "../../Component/Posts/Posts";
 import "./Explore.css";
 import SuggUsers from "../../Component/SuggUsers/SuggUsers";
 import Post from "../../Component/Posts/Post/Post";

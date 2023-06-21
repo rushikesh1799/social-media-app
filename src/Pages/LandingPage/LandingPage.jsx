@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const LandingPage = () => {
-    const { token } = useContext(AuthContext);
-
     return (
         <div>
             <h1>MySocialCircle</h1>

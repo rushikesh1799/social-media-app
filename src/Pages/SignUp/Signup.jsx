@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import "./Signup.css";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { NavLink, useNavigate } from "react-router-dom";
-import Navigation from "../../Component/Navigation/Navigation";
 import { DataContext } from "../../context/DataContext";
 
 const Signup = () => {

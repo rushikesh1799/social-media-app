@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import "./Home.css";
 import Navigation from "../../Component/Navigation/Navigation";
@@ -8,7 +7,6 @@ import Posts from "../../Component/Posts/Posts";
 import { DataContext } from "../../context/DataContext";
 
 const Home = () => {
-    const { user } = useContext(AuthContext);
     const { posts, loading } = useContext(DataContext);
 
     return (
