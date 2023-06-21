@@ -12,7 +12,7 @@ export const posts = [
         content:
             "Went out to a fine restaurant called Mezza9 this tuesday. The ambience is pretty good and the cocktails are superb.",
         likes: {
-            likeCount: 2,
+            likeCount: 0,
             likedBy: [],
             dislikedBy: [],
         },
@@ -106,7 +106,7 @@ export const posts = [
         content:
             "Just cleared the UPSC IAS exam and I'm on cloud nine! 🌟 The journey was tough, but every late-night study session and sacrifice paid off. Feeling incredibly grateful for the support and guidance that got me through this. Dreams do come true! 💪📚 #UPSC #IAS #DreamsComeTrue",
         likes: {
-            likeCount: 3,
+            likeCount: 0,
             likedBy: [],
             dislikedBy: [],
         },
@@ -151,7 +151,7 @@ export const posts = [
         content:
             "🚀 Exciting times ahead in the world of technology! From AI and automation to blockchain and quantum computing, innovations are shaping our future in incredible ways. Buckle up, folks, because the tech revolution is just getting started! 🌐💡 #TechRevolution #Innovation #FutureTech",
         likes: {
-            likeCount: 3,
+            likeCount: 0,
             likedBy: [],
             dislikedBy: [],
         },
