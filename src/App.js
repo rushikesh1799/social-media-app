@@ -7,6 +7,7 @@ import Home from "./Pages/Home/Home";
 import Explore from "./Pages/ExplorePage/Explore";
 import Bookmark from "./Pages/BookmarkPage/Bookmark";
 import Mockman from "mockman-js";
+import RequiresAuth from "./Component/RequiresAuth/RequiresAuth";
 
 function App() {
     return (
@@ -23,7 +24,14 @@ function App() {
                 <Route path="/explore" element={<Explore />}>
                     Explore
                 </Route>
-                <Route path="/bookmark" element={<Bookmark />}>
+                <Route
+                    path="/bookmark"
+                    element={
+                        <RequiresAuth>
+                            <Bookmark />
+                        </RequiresAuth>
+                    }
+                >
                     Bookmark
                 </Route>
                 <Route path="/mockman" element={<Mockman />}>
