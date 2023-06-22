@@ -1,0 +1,41 @@
+.comment__container {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin-left: 0.5rem;
+}
+
+.post-user span {
+    margin-top: 5px;
+}
+
+.post-user-details span {
+    margin-top: 4px;
+    text-align: start;
+}
+
+.comment__content {
+    display: flex;
+    text-align: start;
+    margin-top: 1rem;
+}
+
+.sugg-user-photo {
+    margin-right: 8px;
+}
+
+.profile-photo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-top: 8px;
+}
+
+hr {
+    border: 0;
+    clear: both;
+    display: block;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.47);
+    height: 1px;
+}
