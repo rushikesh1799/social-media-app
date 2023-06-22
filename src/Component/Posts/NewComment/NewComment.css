@@ -1,0 +1,16 @@
+.new__comment__container {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.new__comment__container input {
+    width: 340px;
+    height: 30px;
+}
+
+.new__comment__form {
+    display: flex;
+    flex-direction: row;
+}

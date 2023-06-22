@@ -1,0 +1,21 @@
+.home-primary-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-evenly;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    /* justify-content: space-between; */
+}
+
+.left__arrow {
+    font-size: 1.5rem;
+}
+
+.post__heading {
+    margin-left: 2rem;
+    font-weight: 400;
+}
