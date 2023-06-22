@@ -8,6 +8,7 @@ import Explore from "./Pages/ExplorePage/Explore";
 import Bookmark from "./Pages/BookmarkPage/Bookmark";
 import Mockman from "mockman-js";
 import RequiresAuth from "./Component/RequiresAuth/RequiresAuth";
+import PostDetails from "./Component/Posts/PostDetails/PostDetails";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<LandingPage />}></Route>
                 <Route path="/home" element={<Home />}></Route>
+                <Route path="/post/:postID" element={<PostDetails />}></Route>
                 <Route path="/signup" element={<Signup />}>
                     SignUp
                 </Route>

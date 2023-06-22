@@ -55,7 +55,7 @@ const Login = () => {
     };
 
     return (
-        <div class="login__page__container">
+        <div className="login__page__container">
             <div className="form-container">
                 <h1>Login</h1>
                 <br />

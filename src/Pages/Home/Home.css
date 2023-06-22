@@ -1,7 +1,7 @@
 .home-primary-container {
     display: flex;
-    gap: 1rem;
     justify-content: space-around;
+    padding: 2rem;
 }
 
 .nav-container {
