@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    gap: 1rem;
 }
 
 .sugg-user-container {
@@ -18,10 +19,17 @@
     margin-right: 8px;
 }
 
-.profile-photo {
-    width: 70px;
-    height: 70px;
+.sugg__users__profile__photo {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
+}
+
+.sugg_users_header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    align-self: start;
+    padding: 0px 2px;
 }
 
 .user-info {
@@ -29,4 +37,16 @@
     flex-direction: column;
     justify-content: space-evenly;
     margin-right: 8px;
+}
+
+.user-info span {
+    margin: 0;
+}
+
+.follow_btn {
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    background-color: #3AA856;
+    color: #FFF;
 }
