@@ -12,7 +12,7 @@ export const getAllBookmarks = async (encodedToken) =>
     });
 
 export const likePostService = async ({ post, encodedToken }) => {
-    console.log(`/api/posts/like/${post._id}`);
+    // console.log(`/api/posts/like/${post._id}`);
     return axios.post(
         `/api/posts/like/${post._id}`,
         {},
@@ -74,8 +74,16 @@ export const addPost = async ({ postContent, encodedToken }) => {
     );
 };
 
-export const followService = async (userid, encodedToken) => {
-    const response = await fetch(
+export const DeletePost = async ({ post, encodedToken }) => {
+    return axios.delete(`/api/posts/${post._id}`, {
+        headers: {
+            authorization: encodedToken,
+        },
+    });
+};
+
+export const followService = async ({ userid, encodedToken }) => {
+    return axios.post(
         `/api/users/follow/${userid}`,
         {},
         {
@@ -84,7 +92,8 @@ export const followService = async (userid, encodedToken) => {
             },
         }
     );
-    console.log(response);
+
+    // console.log(response);
     // return axios.post(
     //     `/api/users/follow/${userid}`,
     //     {},
