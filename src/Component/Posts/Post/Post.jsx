@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { DataContext } from "../../../context/DataContext";
 import { AuthContext } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import PostButtons from "../PostButtons/PostButtons";
+
+import "./Post.css"
 
 const Post = ({ post }) => {
     const {
@@ -12,6 +16,8 @@ const Post = ({ post }) => {
         handleRemoveBookmark,
     } = useContext(DataContext);
     const { user } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const getFullName = (username) =>
         users
@@ -35,15 +41,22 @@ const Post = ({ post }) => {
     return (
         <div className="post-container">
             <div className="post-user">
+                <div className="post-user-photo">
+                    <img
+                        src={post?.profilePhoto}
+                        alt="profile-pic"
+                        className="profile-photo"
+                    />
+                </div>
                 <div className="post-user-details">
                     <span>{getFullName(post?.username)}</span>
                     <span>@{post?.username}</span>
                 </div>
                 <span>{getDateFormat(post?.createdAt)}</span>
             </div>
-            <div>
-                <p className="post-content">{post.content}</p>
-                {post.postImage ? (
+            <div onClick={() => navigate(`/post/${post._id}`)}>
+                <p className="post-content">{post?.content}</p>
+                {post?.postImage ? (
                     <img
                         src={post?.postImage}
                         className="post-img"
@@ -53,77 +66,7 @@ const Post = ({ post }) => {
                     <React.Fragment></React.Fragment>
                 )}
             </div>
-            <div className="post-btns">
-                {/* Like Button section starts*/}
-                <div>
-                    {/* {console.log("bookmarks:", user?.bookmarks)} */}
-                    {post?.likes.likedBy
-                        .map((user) => user.username)
-                        .includes(user?.username) ? (
-                        <button onClick={() => handleDisLike(post)}>
-                            <i className="fa fa-heart" aria-hidden="true"></i>{" "}
-                            {post?.likes.likeCount > 0 ? (
-                                <span>{post?.likes.likeCount}</span>
-                            ) : (
-                                <React.Fragment></React.Fragment>
-                            )}
-                        </button>
-                    ) : (
-                        <button
-                            className="like-btn"
-                            onClick={() => handleLike(post)}
-                        >
-                            <i className="fa fa-heart-o" aria-hidden="true"></i>{" "}
-                            {post?.likes.likeCount > 0 ? (
-                                <span>{post?.likes.likeCount}</span>
-                            ) : (
-                                <React.Fragment></React.Fragment>
-                            )}
-                        </button>
-                    )}
-                    {/* Like Button section ends*/}
-                    {/* Comment Button section starts*/}
-                    <button className="comment-btn">Comment</button>
-                    {/* Comment Button section ends*/}
-                    {/* Bookmark Button section starts*/}
-                    {/* {console.log(user?.bookmarks)} */}
-                    {bookmarks.includes(post._id) ? (
-                        <button
-                            className="bookmark-btn"
-                            onClick={() => handleRemoveBookmark(post)}
-                        >
-                            <i
-                                className="fa fa-bookmark"
-                                aria-hidden="true"
-                            ></i>
-                        </button>
-                    ) : (
-                        <button
-                            className="bookmark-btn"
-                            onClick={() => handleBookmark(post)}
-                        >
-                            <i
-                                className="fa fa-bookmark-o"
-                                aria-hidden="true"
-                            ></i>
-                        </button>
-                    )}
-
-                    {/* Bookmark Button section ends*/}
-                </div>
-                <div>
-                    {user?.username === post?.username ? (
-                        <div>
-                            <button className="edit-btn">Edit</button>
-                            <button className="delete-btn">Delete</button>
-                        </div>
-                    ) : (
-                        <div>
-                            <button>UnFollow</button>
-                        </div>
-                    )}
-                </div>
-            </div>
+            <PostButtons post={post} />
         </div>
     );
 };

@@ -7,9 +7,11 @@ import {
 } from "react";
 import { DataReducer } from "../reducers/DataReducer";
 import {
+    DeletePost,
     addPost,
     bookmarkPostService,
     disLikePostService,
+    followService,
     getAllBookmarks,
     getAllPosts,
     getAllUsers,
@@ -23,7 +25,7 @@ export const DataContext = createContext();
 const initialState = {
     users: [],
     posts: [],
-    category: "all",
+    category: "trending",
     filter: "",
     bookmarks: [],
 };
@@ -37,8 +39,8 @@ export const DataProvider = ({ children }) => {
     const { users, posts, category, bookmarks, filter } = state;
 
     useEffect(() => {
-        console.log("posts", posts);
-    }, [posts]);
+        console.log("users:", users);
+    }, [users]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -108,7 +110,7 @@ export const DataProvider = ({ children }) => {
             post: post,
             encodedToken: token,
         });
-        console.log("Bookmark Result:", result);
+        // console.log("Bookmark Result:", result);
         if (result.status === 200 || result.status === 201) {
             dispatch({
                 type: "ADD_BOOKMARK",
@@ -122,7 +124,7 @@ export const DataProvider = ({ children }) => {
             post: { ...post },
             encodedToken: token,
         });
-        console.log("Remove Bookmark Result:", result);
+        // console.log("Remove Bookmark Result:", result);
         if (result.status === 200 || result.status === 201) {
             dispatch({
                 type: "REMOVE_BOOKMARK",
@@ -131,15 +133,50 @@ export const DataProvider = ({ children }) => {
         }
     };
 
-    const handleFollowUser = async (userID) => {
-        const result = await fetch(`/api/users/follow/${userID}`, {
-            method: "POST",
-            headers: {
-                authorization: token,
-            },
+    const handleDelete = async (post) => {
+        console.log(post);
+        const result = await DeletePost({
+            post: { ...post },
+            encodedToken: token,
         });
-        const data = await result.json();
-        console.log(data);
+        console.log("Delete Post Result:", result);
+        if (result.status === 200 || result.status === 201) {
+            dispatch({
+                type: "DELETE_POST",
+                payload: { posts: result.data.posts },
+            });
+        }
+    };
+
+    // const handleFollowUser = async (userID) => {
+    //     const result = await fetch(`/api/users/follow/${userID}`, {
+    //         method: "POST",
+    //         headers: {
+    //             authorization: token,
+    //         },
+    //     });
+    //     const data = await result.json();
+    //     console.log(data);
+    // };
+
+    const handleFollowUser = async (user) => {
+        // console.log(userID);
+        const result = await followService({
+            userid: user._id,
+            encodedToken: token,
+        });
+        // const data = await result.json();
+        console.log("handleFollowUser", result);
+        if (result.status === 200 || result.status === 201) {
+            dispatch({
+                type: "HANDLE_FOLLOW",
+                payload: {
+                    user: result.data.user,
+                    followUser: result.data.followUser,
+                    currentUser: user,
+                },
+            });
+        }
     };
 
     const handleAddPost = async (postContent) => {
@@ -182,10 +219,12 @@ export const DataProvider = ({ children }) => {
                 handleDisLike,
                 handleBookmark,
                 handleRemoveBookmark,
+                handleDelete,
                 handleFollowUser,
                 handleCategory,
                 handleFilters,
                 handleAddPost,
+                dispatch,
             }}
         >
             {children}

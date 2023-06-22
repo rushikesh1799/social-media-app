@@ -1,3 +1,5 @@
+import { users } from "../backend/db/users";
+
 export const DataReducer = (state, action) => {
     switch (action.type) {
         case "GET_USERS":
@@ -35,6 +37,11 @@ export const DataReducer = (state, action) => {
                 ...state,
                 posts: [...action.payload.posts],
             };
+        case "DELETE_POST":
+            return {
+                ...state,
+                posts: [...action.payload.posts],
+            };
         case "SET_CATEGORY":
             return {
                 ...state,
@@ -45,6 +52,22 @@ export const DataReducer = (state, action) => {
                 ...state,
                 filter: action.payload,
             };
+        case "ADD_COMMENT":
+            return {
+                ...state,
+                posts: [...action.payload.posts],
+            };
+        case "HANDLE_FOLLOW":
+            // const newUsersArray = users.map((user) =>
+            //     user._id === action.payload.currentUser._id
+            //         ? { ...action.payload.user }
+            //         : user
+            // );
+            console.log(action.payload.currentUser);
+        // return {
+        //     ...state,
+        //     users: users,
+        // };
         default:
             return state;
     }

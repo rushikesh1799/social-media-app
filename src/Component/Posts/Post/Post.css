@@ -1,0 +1,10 @@
+.post-user-photo {
+    margin-right: 8px;
+}
+
+.profile-photo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-top: 8px;
+}
