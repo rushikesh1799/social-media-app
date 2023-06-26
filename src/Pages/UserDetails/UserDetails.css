@@ -1,0 +1,72 @@
+.profile__page__container {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-around;
+    padding: 2rem;
+}
+
+.profile__page__main__container {
+    width: 600px;
+    margin: 0;
+    border: 1px solid #ccc;
+}
+
+.user__details__heading {
+    margin-left: 1rem;
+    text-align: start;
+    margin-bottom: 1rem;
+
+}
+
+.user__header {
+    display: flex;
+    padding: 0.75rem 1rem;
+    margin-left: 0.25rem;
+}
+
+.user__fullname {
+    margin: 0;
+}
+
+.user__fullname__details {
+    text-align: start;
+}
+
+.user__1st__sec {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user__profile__heading {
+    display: flex;
+    flex-direction: row;
+    text-align: start;
+}
+
+.user__profile__texts {
+    width: 100%;
+    margin-right: 16px;
+}
+
+.user__2st__sec {
+    margin: 8px 0px;
+}
+
+.user__2st__sec a {
+    margin-left: 8px;
+}
+
+.user__3st__sec {
+    display: flex;
+    gap: 1rem;
+}
+
+.user__profile__heading img {
+    height: 75%;
+    border-radius: 50%;
+}
+
+.user__profile__img {
+    display: flex;
+    justify-content: center;
+}

@@ -2,6 +2,9 @@ import axios from "axios";
 
 export const getAllUsers = async () => await axios.get("/api/users");
 
+export const getSelectedUserDetail = async ({ user }) =>
+    await axios.get(`/api/users/${user._id}`);
+
 export const getAllPosts = async () => await axios.get("/api/posts");
 
 export const getAllBookmarks = async (encodedToken) =>
@@ -22,6 +25,10 @@ export const likePostService = async ({ post, encodedToken }) => {
             },
         }
     );
+};
+
+export const getUserDetails = async (username) => {
+    return axios.get(`/api/posts/user/${username}`);
 };
 
 export const disLikePostService = async ({ post, encodedToken }) => {
@@ -103,6 +110,40 @@ export const followService = async ({ userid, encodedToken }) => {
     //         },
     //     }
     // );
+};
+
+export const UnFollowService = async ({ userid, encodedToken }) => {
+    return axios.post(
+        `/api/users/unfollow/${userid}`,
+        {},
+        {
+            headers: {
+                authorization: encodedToken,
+            },
+        }
+    );
+};
+
+export const getAllComments = async ({ post }) => {
+    return axios.get(`/api/comments/${post._id}`);
+};
+
+export const AddCommentToPost = async ({
+    post,
+    commentContent,
+    encodedToken,
+}) => {
+    return axios.post(
+        `/api/comments/add/${post._id}`,
+        {
+            commentData: { comment: commentContent },
+        },
+        {
+            headers: {
+                authorization: encodedToken,
+            },
+        }
+    );
 };
 
 // "username": "adarshbalika",

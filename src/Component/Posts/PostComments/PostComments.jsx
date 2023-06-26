@@ -24,7 +24,7 @@ const PostComments = ({ post }) => {
 
     return (
         <div className="comment__container">
-            {post.comments.map((comment) => (
+            {post?.comments?.map((comment) => (
                 <div className="comment__container" key={comment._id}>
                     <div className="post-user">
                         <div className="sugg-user-photo">

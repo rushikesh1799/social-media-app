@@ -7,14 +7,18 @@ import {
 } from "react";
 import { DataReducer } from "../reducers/DataReducer";
 import {
+    AddCommentToPost,
     DeletePost,
+    UnFollowService,
     addPost,
     bookmarkPostService,
     disLikePostService,
     followService,
     getAllBookmarks,
+    getAllComments,
     getAllPosts,
     getAllUsers,
+    getSelectedUserDetail,
     likePostService,
     removeBookmarkPostService,
 } from "../Services/Services";
@@ -33,27 +37,54 @@ const initialState = {
 export const DataProvider = ({ children }) => {
     const [state, dispatch] = useReducer(DataReducer, initialState);
     const [loading, setLoading] = useState(false);
-    const { token } = useContext(AuthContext);
+    const { user, token } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     // destructuring of the initialState
     const { users, posts, category, bookmarks, filter } = state;
 
     useEffect(() => {
-        console.log("users:", users);
-    }, [users]);
+        console.log("posts:", posts);
+    }, [posts]);
+
+    // console.log("bookmarks", bookmarks);
 
     useEffect(() => {
         const fetchData = async () => {
-            const fetchAllUsersData = await getAllUsers();
-            if (
-                fetchAllUsersData.status === 200 ||
-                fetchAllUsersData.status === 201
-            ) {
-                // console.log(fetchAllUsersData.data.users);
-                dispatch({
-                    type: "GET_USERS",
-                    payload: { users: fetchAllUsersData.data.users },
-                });
+            if (!token) {
+                navigate("/login");
+            } else {
+                try {
+                    const fetchAllUsersData = await getAllUsers();
+                    if (
+                        fetchAllUsersData.status === 200 ||
+                        fetchAllUsersData.status === 201
+                    ) {
+                        // console.log(fetchAllUsersData.data.users);
+                        dispatch({
+                            type: "GET_USERS",
+                            payload: { users: fetchAllUsersData.data.users },
+                        });
+                    }
+
+                    const fetchAllBookmarksData = await getAllBookmarks(token);
+                    console.log("fetchAllBookmarksData", fetchAllBookmarksData);
+
+                    if (
+                        fetchAllBookmarksData.status === 200 ||
+                        fetchAllBookmarksData.status === 201
+                    ) {
+                        dispatch({
+                            type: "GET_BOOKMARKS",
+                            payload: {
+                                bookmarks: fetchAllBookmarksData.data.bookmarks,
+                            },
+                        });
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
             }
 
             // const fetchBookmarksData = await getAllBookmarks(token);
@@ -66,25 +97,64 @@ export const DataProvider = ({ children }) => {
 
     const fetchAllPosts = async () => {
         const result = await getAllPosts();
+
+        // console.log("posts rerender");
+
         if (result.status === 200 || result.status === 201) {
-            // console.log(fetchAllPosts.data.posts);
+            // console.log(fetchAllUsersData.data.users);
             dispatch({
                 type: "GET_POSTS",
                 payload: { posts: result.data.posts },
             });
         }
+
+        // if (users) {
+        //     try {
+        //         const allFollowedUsers = user.following.map(
+        //             (user) => user.username
+        //         );
+
+        //         const allFollowedUsers1 = users
+        //             .find(
+        //                 (currentUser) => currentUser.username === user.username
+        //             )
+        //             .following.map((user) => user.username);
+
+        //         console.log("allFollowedUsers1", allFollowedUsers1);
+
+        //         const followedUsersPosts = result.data.posts.filter((post) =>
+        //             allFollowedUsers1.includes(post.username)
+        //         );
+
+        //         if (result.status === 200 || result.status === 201) {
+        //             // console.log(fetchAllPosts.data.posts);
+        //             dispatch({
+        //                 type: "GET_POSTS",
+        //                 payload: { posts: followedUsersPosts },
+        //             });
+        //         }
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // }
     };
 
     useEffect(() => {
         fetchAllPosts();
-    }, []);
+    }, [users]);
+
+    const handleGetSelectedUser = async (selectedUser) => {
+        const result = await getSelectedUserDetail({ user: selectedUser });
+        navigate(`/profile/${selectedUser?.username}`);
+        console.log("handleGetSelectedUser result", result);
+    };
 
     const handleLike = async (post) => {
         const result = await likePostService({
             post: { ...post },
             encodedToken: token,
         });
-        console.log("Like Result", result);
+        // console.log("Like Result", result);
         if (result.status === 200 || result.status === 201) {
             dispatch({
                 type: "ADD_LIKE",
@@ -148,32 +218,55 @@ export const DataProvider = ({ children }) => {
         }
     };
 
-    // const handleFollowUser = async (userID) => {
-    //     const result = await fetch(`/api/users/follow/${userID}`, {
-    //         method: "POST",
-    //         headers: {
-    //             authorization: token,
-    //         },
-    //     });
-    //     const data = await result.json();
-    //     console.log(data);
-    // };
-
     const handleFollowUser = async (user) => {
-        // console.log(userID);
+        console.log(user);
         const result = await followService({
             userid: user._id,
             encodedToken: token,
         });
         // const data = await result.json();
         console.log("handleFollowUser", result);
+
+        const newUsersArray = users.map((selectedUser) =>
+            selectedUser.username === result.data.user.username
+                ? { ...result.data.user }
+                : selectedUser.username === result.data.followUser.username
+                ? { ...result.data.followUser }
+                : selectedUser
+        );
+
+        // console.log(newUsersArray);
+
         if (result.status === 200 || result.status === 201) {
             dispatch({
                 type: "HANDLE_FOLLOW",
                 payload: {
-                    user: result.data.user,
-                    followUser: result.data.followUser,
-                    currentUser: user,
+                    users: [...newUsersArray],
+                },
+            });
+        }
+    };
+
+    const handleUnFollowUser = async (user) => {
+        const result = await UnFollowService({
+            userid: user._id,
+            encodedToken: token,
+        });
+        // console.log("handle UnFollowUser Result", result);
+
+        const newUsersArray = users.map((selectedUser) =>
+            selectedUser.username === result.data.user.username
+                ? { ...result.data.user }
+                : selectedUser.username === result.data.followUser.username
+                ? { ...result.data.followUser }
+                : selectedUser
+        );
+
+        if (result.status === 200 || result.status === 201) {
+            dispatch({
+                type: "HANDLE_UNFOLLOW",
+                payload: {
+                    users: [...newUsersArray],
                 },
             });
         }
@@ -184,6 +277,7 @@ export const DataProvider = ({ children }) => {
             postContent: { content: postContent },
             encodedToken: token,
         });
+        console.log(result);
         dispatch({ type: "ADD_POSTS", payload: { posts: result.data.posts } });
     };
 
@@ -205,6 +299,42 @@ export const DataProvider = ({ children }) => {
         });
     };
 
+    const handlePostClick = async (post) => {
+        const result = await getAllComments({ post: post });
+        console.log("Get Comments Result", result);
+        navigate(`/post/${post._id}`);
+    };
+
+    const handlePostComment = async (e, post, cmtContent) => {
+        e.preventDefault();
+        const result = await AddCommentToPost({
+            post: post,
+            commentContent: cmtContent,
+            encodedToken: token,
+        });
+        // console.log("handlePostComment result", result);
+        if (result.status === 200 || result.status === 201) {
+            dispatch({
+                type: "ADD_COMMENT",
+                payload: { posts: result.data.posts },
+            });
+        }
+    };
+
+    const getCategoryPosts = () => {
+        const getPosts = posts?.filter(
+            (post) => post?.category.toLowerCase() === category
+        );
+        return getPosts;
+    };
+
+    const getTrendingPosts = () => {
+        const newTrendingPostsArray = [...posts].sort(
+            (a, b) => b.likes.likeCount - a.likes.likeCount
+        );
+        return newTrendingPostsArray;
+    };
+
     return (
         <DataContext.Provider
             value={{
@@ -215,16 +345,22 @@ export const DataProvider = ({ children }) => {
                 filter,
                 bookmarks,
                 setLoading,
+                handleGetSelectedUser,
                 handleLike,
                 handleDisLike,
                 handleBookmark,
                 handleRemoveBookmark,
                 handleDelete,
                 handleFollowUser,
+                handleUnFollowUser,
                 handleCategory,
                 handleFilters,
                 handleAddPost,
                 dispatch,
+                handlePostClick,
+                handlePostComment,
+                getCategoryPosts,
+                getTrendingPosts,
             }}
         >
             {children}
@@ -238,3 +374,43 @@ export const DataProvider = ({ children }) => {
 //     }
 
 // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI3YmUxNjQyZi04Mjk5LTRhMTgtYWY4Yi1lM2M0ZGU5M2I2MWEiLCJ1c2VybmFtZSI6InByYXRpazAwNzcifQ.2BmxqEWdpHUrpMiuoxi3kP2nclAUfmp0G-9VQFIzIxs"
+
+// working on a function to get all the posts that are related to all the followed accounts in realtime.
+
+// useEffect(() => {
+//     const fetchAllPosts = async () => {
+//         const result = await getAllPosts();
+
+//         const allFollowedUsers = user.following.map(
+//             (user) => user.username
+//         );
+
+//         const loggedInUserDetails = users
+//             .filter(
+//                 (currentUser) => currentUser.username === user.username
+//             )[0]
+//             .map((currentUser) =>
+//                 currentUser.followers.map((user) => user.username)
+//             );
+
+//         const allFollowedUsers1 = loggedInUserDetails[0]?.map(
+//             (currentUser) =>
+//                 currentUser.followers.map((user) => user.username)
+//         );
+//         console.log("allFollowedUsers1", allFollowedUsers1);
+
+//         const followedUsersPosts = result.data.posts.filter((post) =>
+//             allFollowedUsers.includes(post.username)
+//         );
+//         // console.log(followedUsersPosts);
+
+//         if (result.status === 200 || result.status === 201) {
+//             // console.log(fetchAllPosts.data.posts);
+//             dispatch({
+//                 type: "GET_POSTS",
+//                 payload: { posts: followedUsersPosts },
+//             });
+//         }
+//     };
+//     fetchAllPosts()
+// }, [users]);

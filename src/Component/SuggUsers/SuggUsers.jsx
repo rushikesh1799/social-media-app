@@ -6,35 +6,54 @@ import { useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const SuggUsers = () => {
-    const { users, handleFollowUser } = useContext(DataContext);
+    const { users, handleFollowUser, handleGetSelectedUser } =
+        useContext(DataContext);
 
     const { user } = useContext(AuthContext);
 
-    const filteredUsers = users?.filter(
-        (selectedUser) => selectedUser._id !== user._id
+    // all users excluding the the user who is logged in
+    const filteredUsers = users.filter(
+        (selectedUser) => selectedUser.username !== user?.username
     );
 
-    // useEffect(() => {
-    //     console.log("users:", users);
-    // }, [users]);
+    // user who is currently logged in
+    const loggInUser = users.filter(
+        (selectedUser) => selectedUser.username === user?.username
+    );
+
+    // array of all the usernames who are being followed by the user who is logged in
+    const followedUsernames = loggInUser[0]?.following.map(
+        (user) => user.username
+    );
+
+    // array of users who are still not in following array of logged in user
+    const moreFilteredUsers = filteredUsers.filter(
+        (user) => !followedUsernames?.includes(user.username)
+    );
 
     return (
         <div className="sugg-user-main-container">
             <span className="sugg_users_header">Suggested Users</span>
             <hr />
-            {filteredUsers.map((user) => (
+            {moreFilteredUsers.map((user) => (
                 <div key={user.id} className="sugg-user-container">
-                    <div className="sugg-user-photo">
-                        <img
-                            src={user.profilePhoto}
-                            alt="profile-pic"
-                            className="sugg__users__profile__photo"
-                        />
+                    <div
+                        className="sugg-user-details"
+                        onClick={() => handleGetSelectedUser(user)}
+                    >
+                        <div className="sugg-user-photo">
+                            <img
+                                src={user.profilePhoto}
+                                alt="profile-pic"
+                                className="sugg__users__profile__photo"
+                            />
+                        </div>
+                        <div className="user-info">
+                            <span>{user.firstName + " " + user.lastName}</span>{" "}
+                            <span>@{user.username}</span>
+                        </div>
                     </div>
-                    <div className="user-info">
-                        <span>{user.firstName + " " + user.lastName}</span>{" "}
-                        <span>@{user.username}</span>
-                    </div>
+
                     <div>
                         <button
                             className="follow_btn"

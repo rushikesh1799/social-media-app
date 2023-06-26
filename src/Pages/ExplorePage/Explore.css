@@ -4,6 +4,12 @@
     justify-content: space-around;
 }
 
+.explore-primary-container {
+    width: 600px;
+    margin: 0;
+    border: 1px solid #ccc;
+}
+
 .btns {
     padding: 4px 8px;
     margin: 0px 4px;

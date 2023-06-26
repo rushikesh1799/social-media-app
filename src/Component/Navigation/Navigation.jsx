@@ -13,8 +13,8 @@ const Navigation = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
-        setUser(null);
-        setToken(null);
+        // setUser(null);
+        // setToken(null);
     };
 
     return (

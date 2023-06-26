@@ -1,9 +1,14 @@
 .primary-nav {
+    /* width: 25%; */
     height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 2rem;
+    padding: 0rem 2rem;
+
+    position: -webkit-sticky;
+    position: sticky;
+    top: 2rem;
 }
 
 .nav-container1 {
@@ -62,6 +67,7 @@
 
 .User__details__text {
     margin-top: 4px;
+    text-align: start;
 }
 
 .User__details__text p {

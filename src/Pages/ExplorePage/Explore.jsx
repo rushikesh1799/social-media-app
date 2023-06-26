@@ -8,21 +8,27 @@ import Post from "../../Component/Posts/Post/Post";
 import { useEffect } from "react";
 
 const Explore = () => {
-    const { posts, category, handleCategory } = useContext(DataContext);
+    const {
+        posts,
+        category,
+        handleCategory,
+        getCategoryPosts,
+        getTrendingPosts,
+    } = useContext(DataContext);
 
-    const getCategoryPosts = () => {
-        const getPosts = posts?.filter(
-            (post) => post?.category.toLowerCase() === category
-        );
-        return getPosts;
-    };
+    // const getCategoryPosts = () => {
+    //     const getPosts = posts?.filter(
+    //         (post) => post?.category.toLowerCase() === category
+    //     );
+    //     return getPosts;
+    // };
 
-    const getTrendingPosts = () => {
-        const newTrendingPostsArray = [...posts].sort(
-            (a, b) => b.likes.likeCount - a.likes.likeCount
-        );
-        return newTrendingPostsArray;
-    };
+    // const getTrendingPosts = () => {
+    //     const newTrendingPostsArray = [...posts].sort(
+    //         (a, b) => b.likes.likeCount - a.likes.likeCount
+    //     );
+    //     return newTrendingPostsArray;
+    // };
 
     // console.log(getTrendingPosts());
 
@@ -31,14 +37,14 @@ const Explore = () => {
             ? getCategoryPosts(category)
             : getTrendingPosts();
 
-    useEffect(() => console.log(postsToRender), [postsToRender]);
+    // useEffect(() => console.log(postsToRender), [postsToRender]);
 
     // console.log("postsToRender", postsToRender);
 
     return (
         <div className="home-primary-container">
             <Navigation />
-            <div>
+            <div className="explore-primary-container">
                 <h1>Explore Page</h1>
                 <div onClick={(e) => handleCategory(e)}>
                     <button value="trending" className="btns">

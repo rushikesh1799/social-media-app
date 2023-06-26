@@ -4,17 +4,10 @@ import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import PostButtons from "../PostButtons/PostButtons";
 
-import "./Post.css"
+import "./Post.css";
 
 const Post = ({ post }) => {
-    const {
-        users,
-        bookmarks,
-        handleLike,
-        handleDisLike,
-        handleBookmark,
-        handleRemoveBookmark,
-    } = useContext(DataContext);
+    const { users, handlePostClick } = useContext(DataContext);
     const { user } = useContext(AuthContext);
 
     const navigate = useNavigate();
@@ -40,7 +33,10 @@ const Post = ({ post }) => {
 
     return (
         <div className="post-container">
-            <div className="post-user">
+            <div
+                className="post-user"
+                onClick={() => navigate(`/profile/${post?.username}`)}
+            >
                 <div className="post-user-photo">
                     <img
                         src={post?.profilePhoto}
@@ -54,7 +50,7 @@ const Post = ({ post }) => {
                 </div>
                 <span>{getDateFormat(post?.createdAt)}</span>
             </div>
-            <div onClick={() => navigate(`/post/${post._id}`)}>
+            <div onClick={() => handlePostClick(post)}>
                 <p className="post-content">{post?.content}</p>
                 {post?.postImage ? (
                     <img

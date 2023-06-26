@@ -51,7 +51,7 @@ const Signup = () => {
     // }, [user]);
 
     return (
-        <div class="page-container">
+        <div className="page-container">
             <div className="form-container">
                 <h1>SignUp</h1>
                 <br />

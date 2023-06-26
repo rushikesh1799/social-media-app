@@ -7,7 +7,7 @@ import { DataContext } from "../../context/DataContext";
 import CreateNewPost from "../CreateNewPost/CreateNewPost";
 
 const Posts = ({ posts }) => {
-    const { filter } = useContext(DataContext);
+    const { filter, getTrendingPosts } = useContext(DataContext);
 
     const LatestPosts = [...posts].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -25,7 +25,7 @@ const Posts = ({ posts }) => {
             : filter === "all"
             ? posts
             : filter === "trending"
-            ? posts
+            ? getTrendingPosts()
             : filter === "oldest"
             ? olderstPosts
             : LatestPosts;

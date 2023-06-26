@@ -3,3 +3,9 @@
     gap: 1rem;
     justify-content: space-around;
 }
+
+.bookmark-primary-container {
+    width: 600px;
+    margin: 0;
+    border: 1px solid #ccc;
+}

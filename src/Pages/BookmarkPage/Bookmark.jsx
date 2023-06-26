@@ -15,10 +15,11 @@ const Bookmark = () => {
 
     const allBookmarks = posts.filter((post) => bookmarks.includes(post._id));
 
+    console.log(allBookmarks);
     return (
         <div className="home-primary-container">
             <Navigation />
-            <div>
+            <div className="bookmark-primary-container">
                 <h1>Bookmark Page</h1>
                 {allBookmarks.map((post) => (
                     <Post post={post} key={post._id} />

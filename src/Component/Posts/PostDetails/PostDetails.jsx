@@ -27,12 +27,12 @@ const PostDetails = () => {
     return (
         <div className="home-primary-container">
             <Navigation />
-            <div>
+            <div className="post-mid-section">
                 <header className="post-header">
                     <i
                         className="fa fa-arrow-left left__arrow"
                         aria-hidden="true"
-                        onClick={() => navigate("/home")}
+                        onClick={() => navigate(-1)}
                     ></i>
                     <h2 className="post__heading">Post</h2>
                 </header>

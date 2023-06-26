@@ -4,9 +4,34 @@ import Navigation from "../../Component/Navigation/Navigation";
 import SuggUsers from "../../Component/SuggUsers/SuggUsers";
 import Posts from "../../Component/Posts/Posts";
 import { DataContext } from "../../context/DataContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const Home = () => {
-    const { posts, loading } = useContext(DataContext);
+    const { users, posts, loading } = useContext(DataContext);
+    const { user } = useContext(AuthContext);
+
+    const getSelectedPosts = () => {
+        if (users) {
+            try {
+                const allFollowedUsers1 = users
+                    .find(
+                        (currentUser) => currentUser.username === user.username
+                    )
+                    .following.map((user) => user.username);
+
+                const followedUsersPosts = posts.filter((post) =>
+                    allFollowedUsers1.includes(post.username)
+                );
+
+                return followedUsersPosts;
+                // console.log("followedUsersPosts", followedUsersPosts);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    const selectedPosts = getSelectedPosts();
 
     return (
         <div>

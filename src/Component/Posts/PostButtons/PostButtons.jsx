@@ -12,8 +12,43 @@ const PostButtons = ({ post }) => {
         handleDelete,
         handleBookmark,
         handleRemoveBookmark,
+        handleFollowUser,
+        handleUnFollowUser,
     } = useContext(DataContext);
     const { user } = useContext(AuthContext);
+
+    // user who is currently logged in
+    const getLoggedInUser = () => {
+        if (users) {
+            try {
+                const loggInUser = users.filter(
+                    (selectedUser) => selectedUser.username === user.username
+                );
+                return loggInUser;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    const loggedInUser = getLoggedInUser();
+
+    // console.log("getLoggedInUser", );
+
+    // const loggInUser = users?.filter(
+    //     (selectedUser) => selectedUser.username === user.username
+    // );
+
+    const getFollowedAccDetails = (username) =>
+        users.find((user) => user.username === username);
+
+    // console.log(getFollowedAccDetails("pravin1"));
+    // const flag = loggInUser[0].following
+    //     .map((user) => user.username)
+    //     .includes("pravin1");
+
+    // console.log(post);
+    // console.log("loggInUser", loggInUser);
 
     return (
         <div>
@@ -54,7 +89,7 @@ const PostButtons = ({ post }) => {
                     >
                         <i className="fa fa-comment-o" aria-hidden="true">
                             {"  "}
-                            {post?.comments.length}
+                            {post?.comments?.length}
                         </i>
                     </button>
                     {/* Comment Button section ends*/}
@@ -85,7 +120,7 @@ const PostButtons = ({ post }) => {
                     {/* Bookmark Button section ends*/}
                 </div>
                 <div>
-                    {user?.username === post?.username ? (
+                    {user?.username === post.username ? (
                         <div>
                             <button className="edit-btn">Edit</button>
                             <button
@@ -95,9 +130,31 @@ const PostButtons = ({ post }) => {
                                 Delete
                             </button>
                         </div>
+                    ) : loggedInUser[0]?.following
+                          .map((user) => user.username)
+                          .includes(post.username) ? (
+                        <div>
+                            <button
+                                onClick={() =>
+                                    handleUnFollowUser(
+                                        getFollowedAccDetails(post.username)
+                                    )
+                                }
+                            >
+                                UnFollow
+                            </button>
+                        </div>
                     ) : (
                         <div>
-                            <button>UnFollow</button>
+                            <button
+                                onClick={() =>
+                                    handleFollowUser(
+                                        getFollowedAccDetails(post.username)
+                                    )
+                                }
+                            >
+                                Follow
+                            </button>
                         </div>
                     )}
                 </div>

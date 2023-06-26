@@ -4,6 +4,12 @@
     justify-content: space-evenly;
 }
 
+.post-mid-section {
+    width: 600px;
+    margin: 0;
+    border: 1px solid #ccc;
+}
+
 .post-header {
     display: flex;
     align-items: center;

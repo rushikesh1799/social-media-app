@@ -12,6 +12,11 @@ export const DataReducer = (state, action) => {
                 ...state,
                 posts: [...action.payload.posts],
             };
+        case "GET_BOOKMARKS":
+            return {
+                ...state,
+                bookmarks: [...action.payload.bookmarks],
+            };
         case "ADD_LIKE":
             return {
                 ...state,
@@ -37,6 +42,11 @@ export const DataReducer = (state, action) => {
                 ...state,
                 posts: [...action.payload.posts],
             };
+        case "GET_USERS_SELECTIVE_POSTS":
+            return {
+                ...state,
+                usersSelectivePosts: [...action.payload.usersSelectivePosts],
+            };
         case "DELETE_POST":
             return {
                 ...state,
@@ -58,16 +68,15 @@ export const DataReducer = (state, action) => {
                 posts: [...action.payload.posts],
             };
         case "HANDLE_FOLLOW":
-            // const newUsersArray = users.map((user) =>
-            //     user._id === action.payload.currentUser._id
-            //         ? { ...action.payload.user }
-            //         : user
-            // );
-            console.log(action.payload.currentUser);
-        // return {
-        //     ...state,
-        //     users: users,
-        // };
+            return {
+                ...state,
+                users: [...action.payload.users],
+            };
+        case "HANDLE_UNFOLLOW":
+            return {
+                ...state,
+                users: [...action.payload.users],
+            };
         default:
             return state;
     }

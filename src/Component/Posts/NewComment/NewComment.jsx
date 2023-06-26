@@ -9,7 +9,7 @@ import { DataContext } from "../../../context/DataContext";
 const NewComment = ({ user, CurrentPost }) => {
     const [newCommentText, setNewCommentText] = useState("");
 
-    const { posts, dispatch } = useContext(DataContext);
+    const { posts, dispatch, handlePostComment } = useContext(DataContext);
 
     // useEffect(() => {
     //     console.log(newCommentText);
@@ -46,7 +46,8 @@ const NewComment = ({ user, CurrentPost }) => {
                 />
             </div>
             <form
-                onSubmit={(e) => handleNewComment(e, newCommentText)}
+                // onSubmit={(e) => handlePostComment(e, newCommentText)}
+
                 className="new__comment__form"
             >
                 <input
@@ -55,7 +56,12 @@ const NewComment = ({ user, CurrentPost }) => {
                     value={newCommentText}
                     onChange={(e) => setNewCommentText(e.target.value)}
                 />
-                <button disabled={newCommentText.length != 0 ? false : true}>
+                <button
+                    onClick={(e) =>
+                        handlePostComment(e, CurrentPost, newCommentText)
+                    }
+                    disabled={newCommentText.length != 0 ? false : true}
+                >
                     Post
                 </button>
             </form>

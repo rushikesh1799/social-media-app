@@ -11,6 +11,7 @@ import { formatDate, requiresAuth } from "../utils/authUtils";
  * */
 
 export const getAllUsersHandler = function () {
+    // console.log("get all users from backend", this.db.users);
     return new Response(200, {}, { users: this.db.users });
 };
 
@@ -258,6 +259,11 @@ export const followUserHandler = function (schema, request) {
                 { errors: ["User Already following"] }
             );
         }
+
+        // console.log("from backend", user);
+        // console.log("from backend", followUser);
+        // console.log("from backend", [...user.following]);
+        // console.log("from backend", [...followUser.followers]);
 
         const updatedUser = {
             ...user,
