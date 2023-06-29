@@ -4,16 +4,22 @@
     justify-content: space-evenly;
 }
 
+.post-header {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px 0 rgba(58, 53, 65, .1);
+    padding: 0px 30px;
+}
+
 .post-mid-section {
     width: 600px;
     margin: 0;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
 }
 
 .post-header {
     display: flex;
     align-items: center;
-    margin-left: 1rem;
     /* justify-content: space-between; */
 }
 

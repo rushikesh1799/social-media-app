@@ -5,13 +5,23 @@
     margin-left: 0.5rem;
 }
 
-.post-user span {
-    margin-top: 5px;
+.post-user-Fullname {
+    margin-top: 2px;
+    font-weight: 500;
 }
 
-.post-user-details span {
+.post-user-username {
+    margin: 0;
+    font-weight: 300;
+}
+
+.text__date__devider {
     margin-top: 4px;
-    text-align: start;
+}
+
+.comment__date {
+    margin-top: 4px;
+    margin-left: 8px;
 }
 
 .comment__content {
@@ -28,7 +38,7 @@
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 hr {

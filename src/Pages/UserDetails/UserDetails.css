@@ -8,7 +8,7 @@
 .profile__page__main__container {
     width: 600px;
     margin: 0;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
 }
 
 .user__details__heading {
@@ -21,7 +21,12 @@
 .user__header {
     display: flex;
     padding: 0.75rem 1rem;
-    margin-left: 0.25rem;
+    margin-bottom: 1rem;
+
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px 0 rgba(58, 53, 65, .1);
+    padding: 15px 30px;
 }
 
 .user__fullname {
@@ -39,8 +44,13 @@
 
 .user__profile__heading {
     display: flex;
-    flex-direction: row;
     text-align: start;
+    gap: 12px;
+
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px 0 rgba(58, 53, 65, .1);
+    padding: 15px 30px;
 }
 
 .user__profile__texts {
@@ -58,15 +68,17 @@
 
 .user__3st__sec {
     display: flex;
+    justify-content: space-between;
+    font-weight: 600;
     gap: 1rem;
 }
 
 .user__profile__heading img {
     height: 75%;
     border-radius: 50%;
+    border: 2px solid #2193b0;
 }
 
 .user__profile__img {
-    display: flex;
-    justify-content: center;
+    width: 100px;
 }

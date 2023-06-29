@@ -1,14 +1,13 @@
 .posts-primary-container {
     width: 600px;
     margin: 0;
-    border: 1px solid #ccc
+    /* border: 1px solid #ccc */
 }
 
 .post-container {
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
-    border: 2px solid black;
     margin: 1rem 0rem;
     padding: 1rem;
 }
@@ -40,6 +39,7 @@
 .bookmark-btn {
     margin: 0px 8px;
     padding: 4px 8px;
+    cursor: pointer;
 }
 
 .post-img {
@@ -51,4 +51,11 @@
 .edit-btn {
     margin: 0px 8px;
     padding: 4px 8px;
+}
+
+.post-three-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 0px;
 }
