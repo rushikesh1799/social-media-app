@@ -117,7 +117,7 @@ export const posts = [
         fullName: "Siddhant Bhadke",
         profilePhoto: "https://picsum.photos/id/1002/150",
         category: "Trending",
-        createdAt: "2024-06-15",
+        createdAt: "2023-05-15",
         updatedAt: formatDate(),
         comments: [
             {

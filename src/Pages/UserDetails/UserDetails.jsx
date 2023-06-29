@@ -9,9 +9,31 @@ import { DataContext } from "../../context/DataContext";
 import Post from "../../Component/Posts/Post/Post";
 import { AuthContext } from "../../context/AuthContext";
 
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
 const UserDetails = () => {
-    const { posts, users, handleFollowUser, handleUnFollowUser } =
-        useContext(DataContext);
+    const style = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: 600,
+        bgcolor: "background.paper",
+        border: "2px solid #000",
+        boxShadow: 24,
+        p: 4,
+    };
+
+    const {
+        posts,
+        users,
+        handleFollowUser,
+        handleUnFollowUser,
+        handleEditUserDetails,
+    } = useContext(DataContext);
     const { userName } = useParams();
     const [userPostsDetails, setUserPostsDetails] = useState([]);
 
@@ -29,7 +51,7 @@ const UserDetails = () => {
     const getLoggedInUser = () => {
         if (users) {
             try {
-                const loggInUser = users.filter(
+                const loggInUser = users.find(
                     (selectedUser) => selectedUser.username === user.username
                 );
                 return loggInUser;
@@ -39,17 +61,44 @@ const UserDetails = () => {
         }
     };
 
+    const getUserObject = () => {
+        if (users) {
+            try {
+                const userObject = users.find(
+                    (user) => user.username === userName
+                );
+                return userObject;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
     const loggedInUser = getLoggedInUser();
 
-    const followingUsers = loggedInUser[0]?.following.map(
-        (user) => user.username
-    );
+    // console.log(loggedInUser)
 
-    const userObject = users?.find((user) => user.username === userName);
+    const followingUsers =
+        loggedInUser && loggedInUser.following.map((user) => user.username);
+
+    const userObject = getUserObject();
+
+    const [updatedUserDetails, setUpdatedUserDetails] = useState({});
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+        setUpdatedUserDetails(loggedInUser);
+    };
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         fetchUserDetails();
     }, [posts]);
+
+    // useEffect(() => {
+    //     console.log("updatedUserDetails", updatedUserDetails);
+    // }, [updatedUserDetails]);
 
     return (
         <div className="profile__page__container">
@@ -74,75 +123,191 @@ const UserDetails = () => {
                 </header>
 
                 <section className="user__profile__heading">
-                    <div className="user__profile__img">
-                        <img
-                            src={userObject?.profilePhoto}
-                            alt="profile-photo"
-                        />
-                    </div>
-                    <div className="user__profile__texts">
-                        <div className="user__1st__sec">
-                            <div className="user__fullname__details">
-                                <h3 className="user__fullname">
-                                    {userObject?.fullName}
-                                </h3>
-                                <span>@{userObject?.username}</span>
-                            </div>
+                    <img
+                        className="user__profile__img"
+                        src={userObject?.profilePhoto}
+                        alt="profile-photo"
+                    />
+                    {userObject && (
+                        <div className="user__profile__texts">
+                            <div className="user__1st__sec">
+                                <div className="user__fullname__details">
+                                    <h3 className="user__fullname">
+                                        {userObject.fullName}
+                                    </h3>
+                                    <span>@{userObject.username}</span>
+                                </div>
 
-                            {userObject.username === user.username ? (
+                                {userObject.username === user.username ? (
+                                    <div>
+                                        <Button onClick={handleOpen}>
+                                            Edit
+                                        </Button>
+                                        <Modal
+                                            open={open}
+                                            onClose={handleClose}
+                                            aria-labelledby="modal-modal-title"
+                                            aria-describedby="modal-modal-description"
+                                        >
+                                            <Box sx={style}>
+                                                <Typography
+                                                    id="modal-modal-title"
+                                                    variant="h6"
+                                                    component="h2"
+                                                >
+                                                    Edit Profile
+                                                </Typography>
+                                                <Typography
+                                                    id="modal-modal-description"
+                                                    sx={{ mt: 2 }}
+                                                    component="div"
+                                                >
+                                                    <div>
+                                                        <label htmlFor="name">
+                                                            <div>Name</div>
+                                                            <input
+                                                                type="text"
+                                                                id="name"
+                                                                value={
+                                                                    updatedUserDetails.fullName
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setUpdatedUserDetails(
+                                                                        (
+                                                                            prev
+                                                                        ) => ({
+                                                                            ...prev,
+                                                                            fullName:
+                                                                                e
+                                                                                    .target
+                                                                                    .value,
+                                                                        })
+                                                                    )
+                                                                }
+                                                            />
+                                                        </label>
+                                                        <label htmlFor="bio">
+                                                            <div>Bio</div>
+                                                            <input
+                                                                type="text"
+                                                                id="bio"
+                                                                value={
+                                                                    updatedUserDetails.bio
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setUpdatedUserDetails(
+                                                                        (
+                                                                            prev
+                                                                        ) => ({
+                                                                            ...prev,
+                                                                            bio: e
+                                                                                .target
+                                                                                .value,
+                                                                        })
+                                                                    )
+                                                                }
+                                                            />
+                                                        </label>
+                                                        <label htmlFor="website">
+                                                            <div>Website</div>
+                                                            <input
+                                                                type="text"
+                                                                id="website"
+                                                                value={
+                                                                    updatedUserDetails.website_link
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setUpdatedUserDetails(
+                                                                        (
+                                                                            prev
+                                                                        ) => ({
+                                                                            ...prev,
+                                                                            website_link:
+                                                                                e
+                                                                                    .target
+                                                                                    .value,
+                                                                        })
+                                                                    )
+                                                                }
+                                                            />
+                                                        </label>
+                                                    </div>
+                                                </Typography>
+                                                <Button onClick={handleClose}>
+                                                    Discard
+                                                </Button>
+                                                <Button
+                                                    onClick={() => {
+                                                        handleEditUserDetails(
+                                                            updatedUserDetails
+                                                        );
+                                                        handleClose();
+                                                    }}
+                                                >
+                                                    Update
+                                                </Button>
+                                            </Box>
+                                        </Modal>
+                                    </div>
+                                ) : followingUsers &&
+                                  followingUsers.includes(
+                                      userObject.username
+                                  ) ? (
+                                    <div>
+                                        <button
+                                            onClick={() =>
+                                                handleUnFollowUser(userObject)
+                                            }
+                                        >
+                                            UnFollow
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <button
+                                            className="follow_btn"
+                                            onClick={() =>
+                                                handleFollowUser(userObject)
+                                            }
+                                        >
+                                            Follow
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="user__2st__sec">
+                                <span>{userObject?.bio}</span>
                                 <div>
-                                    <button>Edit</button>
+                                    <span>
+                                        <i
+                                            className="fa fa-globe"
+                                            aria-hidden="true"
+                                        ></i>
+                                        <a
+                                            href={userObject?.website_link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {userObject?.website_link}
+                                        </a>
+                                    </span>
                                 </div>
-                            ) : followingUsers.includes(userObject.username) ? (
-                                <div>
-                                    <button
-                                        onClick={() =>
-                                            handleUnFollowUser(userObject)
-                                        }
-                                    >
-                                        UnFollow
-                                    </button>
-                                </div>
-                            ) : (
-                                <div>
-                                    <button
-                                        className="follow_btn"
-                                        onClick={() =>
-                                            handleFollowUser(userObject)
-                                        }
-                                    >
-                                        Follow
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                        <div className="user__2st__sec">
-                            <span>{userObject?.bio}</span>
-                            <div>
+                            </div>
+                            <div className="user__3st__sec">
                                 <span>
-                                    <i
-                                        className="fa fa-globe"
-                                        aria-hidden="true"
-                                    ></i>
-                                    <a
-                                        href={userObject?.website_link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {userObject?.website_link}
-                                    </a>
+                                    {userPostsDetails.length === 1
+                                        ? `${userPostsDetails.length} Post`
+                                        : `${userPostsDetails.length} Posts`}{" "}
                                 </span>
+                                <span>{`${userObject.following.length} Following`}</span>
+                                <span>{`${userObject.followers.length} Followers`}</span>
                             </div>
                         </div>
-                        <div className="user__3st__sec">
-                            <span>{`${userObject.following.length} following`}</span>
-                            <span>{`${userObject.followers.length} followers`}</span>
-                        </div>
-                    </div>
+                    )}
                 </section>
 
                 {userPostsDetails.map((post) => (
-                    <Post post={post} />
+                    <Post post={post} key={post._id} />
                 ))}
             </div>
 

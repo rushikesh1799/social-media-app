@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PostButtons from "../PostButtons/PostButtons";
 
 import "./Post.css";
+import { useState } from "react";
 
 const Post = ({ post }) => {
     const { users, handlePostClick } = useContext(DataContext);
@@ -20,16 +21,17 @@ const Post = ({ post }) => {
                 ""
             );
 
+    const getProfilePhoto = (username) =>
+        users
+            .filter((user) => user.username === username)
+            .reduce((acc, curr) => acc + curr.profilePhoto, "");
+
     const getDateFormat = (inputDate) =>
         new Date(inputDate).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
             year: "numeric",
         });
-
-    // const handleDisLike = (post) => {
-    //     console.log("Dislike this post", post);
-    // };
 
     return (
         <div className="post-container">
@@ -39,19 +41,30 @@ const Post = ({ post }) => {
             >
                 <div className="post-user-photo">
                     <img
-                        src={post?.profilePhoto}
+                        src={getProfilePhoto(post?.username)}
                         alt="profile-pic"
                         className="profile-photo"
                     />
                 </div>
                 <div className="post-user-details">
-                    <span>{getFullName(post?.username)}</span>
-                    <span>@{post?.username}</span>
+                    <span className="post-user-Fullname">
+                        {getFullName(post?.username)}
+                    </span>
+                    <span className="post-user-username">
+                        @{post?.username}
+                    </span>
                 </div>
-                <span>{getDateFormat(post?.createdAt)}</span>
+                <div className="text__date__devider">
+                    <span className="dot"> • </span>
+                    <span className="post__date">
+                        {getDateFormat(post?.createdAt)}
+                    </span>
+                </div>
             </div>
             <div onClick={() => handlePostClick(post)}>
-                <p className="post-content">{post?.content}</p>
+                <div className="post-content">
+                    <p>{post?.content}</p>
+                </div>
                 {post?.postImage ? (
                     <img
                         src={post?.postImage}

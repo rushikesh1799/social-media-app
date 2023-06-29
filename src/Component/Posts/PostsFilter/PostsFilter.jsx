@@ -1,18 +1,24 @@
 import React, { useContext } from "react";
 import { DataContext } from "../../../context/DataContext";
 
+import "./PostFilters.css";
+
+import WhatshotIcon from "@mui/icons-material/Whatshot";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
+
 const PostsFilter = () => {
     const { handleFilters } = useContext(DataContext);
 
     return (
-        <div>
-            <label htmlFor="posts">Choose a filter:</label>{" "}
-            <select name="posts" id="posts" onClick={(e) => handleFilters(e)}>
-                <option value="all">All</option>
-                <option value="oldest">Oldest</option>
-                <option value="latest">Latest</option>
-                <option value="trending">Trending</option>
-            </select>
+        <div className="filters__container" onClick={(e) => handleFilters(e)}>
+            <div id="trending" value="trending" className="filters">
+                <WhatshotIcon />
+                Trending Posts
+            </div>
+            <div id="latest" value="latest" className="filters">
+                <SwapVertIcon />
+                Latest Posts
+            </div>
         </div>
     );
 };

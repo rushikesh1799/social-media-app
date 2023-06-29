@@ -42,6 +42,16 @@ export const DataReducer = (state, action) => {
                 ...state,
                 posts: [...action.payload.posts],
             };
+        case "EDIT_POSTS":
+            return {
+                ...state,
+                posts: [...action.payload.posts],
+            };
+        case "EDIT_USER_INFO":
+            return {
+                ...state,
+                users: [...action.payload.users],
+            };
         case "GET_USERS_SELECTIVE_POSTS":
             return {
                 ...state,

@@ -15,6 +15,11 @@ const PostComments = ({ post }) => {
                 ""
             );
 
+    const getProfilePhoto = (username) =>
+        users
+            .filter((user) => user.username === username)
+            .reduce((acc, curr) => acc + curr.profilePhoto, "");
+
     const getDateFormat = (inputDate) =>
         new Date(inputDate).toLocaleDateString("en-US", {
             month: "short",
@@ -29,16 +34,25 @@ const PostComments = ({ post }) => {
                     <div className="post-user">
                         <div className="sugg-user-photo">
                             <img
-                                src={comment.profileAvatar}
+                                src={getProfilePhoto(comment?.username)}
                                 alt="profile-pic"
                                 className="profile-photo"
                             />
                         </div>
                         <div className="post-user-details">
-                            <span>{getFullName(comment?.username)}</span>
-                            <span>@{comment?.username}</span>
+                            <span className="post-user-Fullname">
+                                {getFullName(comment?.username)}
+                            </span>
+                            <span className="post-user-username">
+                                @{comment?.username}
+                            </span>
                         </div>
-                        <span>{getDateFormat(comment?.createdAt)}</span>
+                        <div className="text__date__devider">
+                            <span className="dot"> • </span>
+                        </div>
+                        <span className="comment__date">
+                            {getDateFormat(comment?.createdAt)}
+                        </span>
                     </div>
                     <div className="comment__content">{comment.comment}</div>
                     <hr />

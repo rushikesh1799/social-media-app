@@ -13,6 +13,8 @@ import {
     addPost,
     bookmarkPostService,
     disLikePostService,
+    editPost,
+    editUserDetails,
     followService,
     getAllBookmarks,
     getAllComments,
@@ -30,7 +32,7 @@ const initialState = {
     users: [],
     posts: [],
     category: "trending",
-    filter: "",
+    filter: "latest",
     bookmarks: [],
 };
 
@@ -69,7 +71,7 @@ export const DataProvider = ({ children }) => {
                     }
 
                     const fetchAllBookmarksData = await getAllBookmarks(token);
-                    console.log("fetchAllBookmarksData", fetchAllBookmarksData);
+                    // console.log("fetchAllBookmarksData", fetchAllBookmarksData);
 
                     if (
                         fetchAllBookmarksData.status === 200 ||
@@ -107,36 +109,6 @@ export const DataProvider = ({ children }) => {
                 payload: { posts: result.data.posts },
             });
         }
-
-        // if (users) {
-        //     try {
-        //         const allFollowedUsers = user.following.map(
-        //             (user) => user.username
-        //         );
-
-        //         const allFollowedUsers1 = users
-        //             .find(
-        //                 (currentUser) => currentUser.username === user.username
-        //             )
-        //             .following.map((user) => user.username);
-
-        //         console.log("allFollowedUsers1", allFollowedUsers1);
-
-        //         const followedUsersPosts = result.data.posts.filter((post) =>
-        //             allFollowedUsers1.includes(post.username)
-        //         );
-
-        //         if (result.status === 200 || result.status === 201) {
-        //             // console.log(fetchAllPosts.data.posts);
-        //             dispatch({
-        //                 type: "GET_POSTS",
-        //                 payload: { posts: followedUsersPosts },
-        //             });
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
     };
 
     useEffect(() => {
@@ -283,6 +255,46 @@ export const DataProvider = ({ children }) => {
 
     // postData: { content: postContent },
 
+    // on clicking on edit button - open the modal
+    // in modal create input element and give it value as some state, update that onChange and pass it as postUpdatedContent in handleEditPost function while clicking on submit button of modal.
+
+    const handleEditPost = async (updatedPost) => {
+        const result = await editPost({
+            postContent: updatedPost,
+            encodedToken: token,
+        });
+        // console.log("handleEditPost result", result);
+        if (result.status === 200 || result.status === 201) {
+            dispatch({
+                type: "EDIT_POSTS",
+                payload: { posts: result.data.posts },
+            });
+        }
+    };
+
+    const handleEditUserDetails = async (updatedUserDetails) => {
+        const result = await editUserDetails({
+            userContent: updatedUserDetails,
+            encodedToken: token,
+        });
+        // console.log("handleEditUserDetails", result);
+
+        const newUpdatedUsers = users.map((selectedUser) =>
+            selectedUser.username === result.data.user.username
+                ? { ...result.data.user }
+                : selectedUser
+        );
+
+        console.log("newUpdatedUsers", newUpdatedUsers);
+
+        if (result.status === 200 || result.status === 201) {
+            dispatch({
+                type: "EDIT_USER_INFO",
+                payload: { users: newUpdatedUsers },
+            });
+        }
+    };
+
     const handleCategory = (e) => {
         // console.log(e.target.value.toLowerCase());
         dispatch({
@@ -292,10 +304,10 @@ export const DataProvider = ({ children }) => {
     };
 
     const handleFilters = (e) => {
-        // console.log(e.target.value);
+        // console.log(e);
         dispatch({
             type: "SET_FILTER",
-            payload: e.target.value,
+            payload: e.target.id,
         });
     };
 
@@ -312,7 +324,7 @@ export const DataProvider = ({ children }) => {
             commentContent: cmtContent,
             encodedToken: token,
         });
-        // console.log("handlePostComment result", result);
+        console.log("handlePostComment result", result);
         if (result.status === 200 || result.status === 201) {
             dispatch({
                 type: "ADD_COMMENT",
@@ -356,6 +368,8 @@ export const DataProvider = ({ children }) => {
                 handleCategory,
                 handleFilters,
                 handleAddPost,
+                handleEditPost,
+                handleEditUserDetails,
                 dispatch,
                 handlePostClick,
                 handlePostComment,

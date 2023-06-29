@@ -89,6 +89,34 @@ export const DeletePost = async ({ post, encodedToken }) => {
     });
 };
 
+export const editPost = async ({ postContent, encodedToken }) => {
+    return axios.post(
+        `/api/posts/edit/${postContent._id}`,
+        {
+            postData: postContent,
+        },
+        {
+            headers: {
+                authorization: encodedToken,
+            },
+        }
+    );
+};
+
+export const editUserDetails = async ({ userContent, encodedToken }) => {
+    return axios.post(
+        `/api/users/edit`,
+        {
+            userData: userContent,
+        },
+        {
+            headers: {
+                authorization: encodedToken,
+            },
+        }
+    );
+};
+
 export const followService = async ({ userid, encodedToken }) => {
     return axios.post(
         `/api/users/follow/${userid}`,

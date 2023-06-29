@@ -20,15 +20,11 @@ const Posts = ({ posts }) => {
     // console.log("olderstPosts", olderstPosts);
 
     const postsToRender =
-        filter === ""
-            ? posts
-            : filter === "all"
-            ? posts
+        filter === "latest"
+            ? LatestPosts
             : filter === "trending"
             ? getTrendingPosts()
-            : filter === "oldest"
-            ? olderstPosts
-            : LatestPosts;
+            : olderstPosts;
 
     // const postsToRender1 = () => {
     //     switch (filter) {
