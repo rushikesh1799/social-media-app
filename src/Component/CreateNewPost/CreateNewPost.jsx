@@ -25,7 +25,10 @@ const CreateNewPost = () => {
                     <i className="fa fa-picture-o" aria-hidden="true"></i>
                     <button
                         className="post__btn"
-                        onClick={() => handleAddPost(postContent)}
+                        onClick={() => {
+                            handleAddPost(postContent);
+                            setPostContent("");
+                        }}
                     >
                         Post
                     </button>

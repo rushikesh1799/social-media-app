@@ -15,26 +15,27 @@ const NewComment = ({ user, CurrentPost }) => {
     //     console.log(newCommentText);
     // }, [newCommentText]);
 
-    const handleNewComment = (e, newComment) => {
-        e.preventDefault();
-        const newCommentObj = {
-            ...user,
-            _id: uuid(),
-            profileAvatar: user.profilePhoto,
-            comment: newComment,
-        };
-        const UpdatedPosts = posts.map((post) =>
-            post._id === CurrentPost._id
-                ? {
-                      ...post,
-                      comments: [...post.comments, { ...newCommentObj }],
-                  }
-                : post
-        );
-        console.log(UpdatedPosts);
-        dispatch({ type: "ADD_COMMENT", payload: { posts: UpdatedPosts } });
-        setNewCommentText("");
-    };
+    // const handleNewComment = (e, newComment) => {
+    //     e.preventDefault();
+    //     const newCommentObj = {
+    //         ...user,
+    //         _id: uuid(),
+    //         profileAvatar: user.profilePhoto,
+    //         comment: newComment,
+    //     };
+    //     // console.log("newCommentObj", newCommentObj);
+    //     const UpdatedPosts = posts.map((post) =>
+    //         post._id === CurrentPost._id
+    //             ? {
+    //                   ...post,
+    //                   comments: [...post.comments, { ...newCommentObj }],
+    //               }
+    //             : post
+    //     );
+    //     console.log(UpdatedPosts);
+    //     dispatch({ type: "ADD_COMMENT", payload: { posts: UpdatedPosts } });
+    //     setNewCommentText("");
+    // };
 
     return (
         <div className="new__comment__container">
@@ -57,9 +58,10 @@ const NewComment = ({ user, CurrentPost }) => {
                     onChange={(e) => setNewCommentText(e.target.value)}
                 />
                 <button
-                    onClick={(e) =>
-                        handlePostComment(e, CurrentPost, newCommentText)
-                    }
+                    onClick={(e) => {
+                        handlePostComment(e, CurrentPost, newCommentText);
+                        setNewCommentText("");
+                    }}
                     disabled={newCommentText.length != 0 ? false : true}
                 >
                     Post
