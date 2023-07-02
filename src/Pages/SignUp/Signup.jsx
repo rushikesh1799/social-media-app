@@ -52,15 +52,16 @@ const Signup = () => {
 
     return (
         <div className="page-container">
-            <div className="form-container">
-                <h1>SignUp</h1>
+            <div className="signup-form-container">
+                <h1>Register</h1>
                 <br />
                 <form onSubmit={handleSignUp} className="signup-form">
-                    <label>
-                        Full Name:
+                    <div className="signUp__form__field">
+                        <label>Full Name:</label>
                         <input
                             type="text"
                             value={signUpInfo.fullname}
+                            placeholder="Enter your fullname..."
                             onChange={(e) =>
                                 setSignUpInfo((prev) => ({
                                     ...prev,
@@ -69,12 +70,13 @@ const Signup = () => {
                             }
                             required
                         />
-                    </label>
-                    <label>
-                        UserName:
+                    </div>
+                    <div className="signUp__form__field">
+                        <label>Username:</label>
                         <input
                             type="text"
                             value={signUpInfo.username}
+                            placeholder="Enter your username..."
                             onChange={(e) =>
                                 setSignUpInfo((prev) => ({
                                     ...prev,
@@ -83,12 +85,14 @@ const Signup = () => {
                             }
                             required
                         />
-                    </label>
-                    <label>
-                        Email:
+                    </div>
+
+                    <div className="signUp__form__field">
+                        <label>Email:</label>
                         <input
                             type="text"
                             value={signUpInfo.email}
+                            placeholder="Enter your email..."
                             onChange={(e) =>
                                 setSignUpInfo((prev) => ({
                                     ...prev,
@@ -97,27 +101,43 @@ const Signup = () => {
                             }
                             required
                         />
-                    </label>
-                    <label>
-                        Password:
-                        <input
-                            type={!showPassword ? "password" : "text"}
-                            value={signUpInfo.password}
-                            onChange={(e) =>
-                                setSignUpInfo((prev) => ({
-                                    ...prev,
-                                    password: e.target.value,
-                                }))
-                            }
-                            required
-                        />
-                        <button
-                            type="button"
-                            onClick={() => setShowPassword((prev) => !prev)}
-                        >
-                            Show Password
-                        </button>
-                    </label>
+                    </div>
+
+                    <div className="signUp__form__field">
+                        <label>Password:</label>
+                        <div className="password__field">
+                            <input
+                                type={!showPassword ? "password" : "text"}
+                                value={signUpInfo.password}
+                                placeholder="Enter your password..."
+                                onChange={(e) =>
+                                    setSignUpInfo((prev) => ({
+                                        ...prev,
+                                        password: e.target.value,
+                                    }))
+                                }
+                                required
+                            />
+                            {!showPassword ? (
+                                <i
+                                    className="fa fa-eye-slash password__icon"
+                                    aria-hidden="true"
+                                    onClick={() =>
+                                        setShowPassword((prev) => !prev)
+                                    }
+                                ></i>
+                            ) : (
+                                <i
+                                    className="fa fa-eye password__icon"
+                                    aria-hidden="true"
+                                    onClick={() =>
+                                        setShowPassword((prev) => !prev)
+                                    }
+                                ></i>
+                            )}
+                        </div>
+                    </div>
+
                     <button type="submit" className="Submit-btn">
                         Create New Account
                     </button>

@@ -7,7 +7,7 @@ import { DataContext } from "../../context/DataContext";
 
 const Login = () => {
     const { setToken, setUser } = useContext(AuthContext);
-
+    const { loginAsGuest } = useContext(DataContext);
     const [loginInfo, setLoginInfo] = useState({
         username: "",
         password: "",
@@ -59,9 +59,9 @@ const Login = () => {
             <div className="form-container">
                 <h1>Login</h1>
                 <br />
-                <form onSubmit={handleLogin} className="login__form">
-                    <label className="login__form__labels">
-                        Username:
+                <form className="login__form">
+                    <div>
+                        <label className="login__form__labels">Username:</label>
                         <input
                             type="text"
                             value={loginInfo.email}
@@ -73,10 +73,10 @@ const Login = () => {
                             }
                             className="login__form__input"
                         />
-                    </label>
+                    </div>
                     <br />
-                    <label className="login__form__labels">
-                        Password:
+                    <div>
+                        <label className="login__form__labels">Password:</label>
                         <input
                             type="password"
                             value={loginInfo.password}
@@ -88,9 +88,14 @@ const Login = () => {
                             }
                             className="login__form__input"
                         />
-                    </label>
+                    </div>
                     <br />
-                    <button type="submit">Login</button>
+                    <button type="submit" onClick={handleLogin}>
+                        Login
+                    </button>
+                    <button type="submit" onClick={loginAsGuest}>
+                        Login with Guest Credentials
+                    </button>
                     <span>
                         Don't have an account?{" "}
                         <NavLink to="/signup">Join Now</NavLink>
