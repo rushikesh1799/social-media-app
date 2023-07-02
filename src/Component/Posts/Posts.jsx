@@ -48,7 +48,6 @@ const Posts = ({ posts }) => {
 
     return (
         <div className="posts-primary-container">
-            <h1>Home Page - Posts</h1>
             <CreateNewPost />
             <PostsFilter />
             {postsToRender.map((post) => (

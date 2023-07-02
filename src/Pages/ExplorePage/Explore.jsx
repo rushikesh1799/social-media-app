@@ -6,6 +6,7 @@ import "./Explore.css";
 import SuggUsers from "../../Component/SuggUsers/SuggUsers";
 import Post from "../../Component/Posts/Post/Post";
 import { useEffect } from "react";
+import Header from "../../Component/Header/Header";
 
 const Explore = () => {
     const {
@@ -42,26 +43,28 @@ const Explore = () => {
     // console.log("postsToRender", postsToRender);
 
     return (
-        <div className="home-primary-container">
-            <Navigation />
-            <div className="explore-primary-container">
-                <h1>Explore Page</h1>
-                <div onClick={(e) => handleCategory(e)}>
-                    <button value="trending" className="btns">
-                        Trending
-                    </button>
-                    <button value="Sports" className="btns">
-                        Sports
-                    </button>
-                    <button value="Technology" className="btns">
-                        Technology
-                    </button>
+        <div>
+            <Header />
+            <div className="home-primary-container">
+                <Navigation />
+                <div className="explore-primary-container">
+                    <div onClick={(e) => handleCategory(e)}>
+                        <button value="trending" className="btns">
+                            Trending
+                        </button>
+                        <button value="Sports" className="btns">
+                            Sports
+                        </button>
+                        <button value="Technology" className="btns">
+                            Technology
+                        </button>
+                    </div>
+                    {postsToRender.map((post) => (
+                        <Post post={post} key={post._id} />
+                    ))}
                 </div>
-                {postsToRender.map((post) => (
-                    <Post post={post} key={post._id} />
-                ))}
+                <SuggUsers />
             </div>
-            <SuggUsers />
         </div>
     );
 };
