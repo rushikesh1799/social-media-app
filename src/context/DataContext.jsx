@@ -26,6 +26,7 @@ import {
 } from "../Services/Services";
 import { AuthContext } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export const DataContext = createContext();
 
 const initialState = {
@@ -39,7 +40,7 @@ const initialState = {
 export const DataProvider = ({ children }) => {
     const [state, dispatch] = useReducer(DataReducer, initialState);
     const [loading, setLoading] = useState(false);
-    const { user, token } = useContext(AuthContext);
+    const { user, token, setToken, setUser } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -304,7 +305,7 @@ export const DataProvider = ({ children }) => {
     };
 
     const handleFilters = (e) => {
-        // console.log(e);
+        console.log(e);
         dispatch({
             type: "SET_FILTER",
             payload: e.target.id,
@@ -347,6 +348,43 @@ export const DataProvider = ({ children }) => {
         return newTrendingPostsArray;
     };
 
+    const loginAsGuest = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        console.log("Hello")
+        try {
+            const data = {
+                username: "adarshbalika",
+                password: "adarshBalika123",
+            };
+            const result = await axios.post(`/api/auth/login`, data);
+            console.log(result);
+            if (result.status === 200 || result.status === 201) {
+                localStorage.setItem("token", result.data.encodedToken);
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(result.data.foundUser)
+                );
+                setToken(result.data.encodedToken);
+                setUser(result.data.foundUser);
+                setLoading(false);
+                // ReactToastify("Logged in Successfully as Guest", "success");
+                // clearState();
+                navigate("/home");
+            } else {
+                // ReactToastify(
+                //     "Something went wrong, Please try again!",
+                //     "error"
+                // );
+            }
+        } catch (error) {
+            error?.response?.data?.errors?.map((e) =>
+                // ReactToastify(e, "error")
+                console.log(error)
+            );
+        }
+    };
+
     return (
         <DataContext.Provider
             value={{
@@ -375,6 +413,7 @@ export const DataProvider = ({ children }) => {
                 handlePostComment,
                 getCategoryPosts,
                 getTrendingPosts,
+                loginAsGuest,
             }}
         >
             {children}

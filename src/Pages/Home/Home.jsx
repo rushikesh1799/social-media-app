@@ -5,6 +5,7 @@ import SuggUsers from "../../Component/SuggUsers/SuggUsers";
 import Posts from "../../Component/Posts/Posts";
 import { DataContext } from "../../context/DataContext";
 import { AuthContext } from "../../context/AuthContext";
+import Header from "../../Component/Header/Header";
 
 const Home = () => {
     const { users, posts, loading } = useContext(DataContext);
@@ -35,6 +36,7 @@ const Home = () => {
 
     return (
         <div>
+            <Header />
             {loading ? (
                 <h1 style={{ backgroundColor: "red" }}>...Loading</h1>
             ) : (

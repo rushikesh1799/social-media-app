@@ -163,6 +163,10 @@ const PostButtons = ({ post }) => {
     } = useContext(DataContext);
     const { user } = useContext(AuthContext);
 
+    // useEffect(() => {
+    //     console.log("user", user);
+    // }, [user]);
+
     // user who is currently logged in
     const getLoggedInUser = () => {
         if (users) {

@@ -10,6 +10,8 @@ import "./PostDetails.css";
 import PostComments from "../PostComments/PostComments";
 import NewComment from "../NewComment/NewComment";
 import { AuthContext } from "../../../context/AuthContext";
+import { useEffect } from "react";
+import axios from "axios";
 
 const PostDetails = () => {
     const { user } = useContext(AuthContext);
@@ -20,11 +22,29 @@ const PostDetails = () => {
 
     const { posts } = useContext(DataContext);
 
+    // useEffect(async () => {
+    //     console.log("postID", postID);
+    //     try {
+    //         const result = await axios.get(`/api/posts/${postID}`);
+    //         console.log("current post details", result.data.post);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // });
+
     const post = posts.find((post) => post._id === postID);
 
-    // console.log(user);
+    console.log("postDetails Post", post);
+
+    // useEffect(() => {
+    //     console.log("postID", postID);
+    // }, [postID]);
+    // useEffect(() => {
+    //     console.log("posts", posts);
+    // }, [posts]);
 
     return (
+        // <div>{postID}</div>
         <div className="home-primary-container">
             <Navigation />
             <div className="post-mid-section">
