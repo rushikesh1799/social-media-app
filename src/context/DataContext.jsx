@@ -116,6 +116,29 @@ export const DataProvider = ({ children }) => {
         fetchAllPosts();
     }, [users]);
 
+    const getSelectedPosts = () => {
+        if (users) {
+            try {
+                const allFollowedUsers1 = users
+                    .find(
+                        (currentUser) => currentUser.username === user.username
+                    )
+                    .following.map((user) => user.username);
+
+                const followedUsersPosts = posts.filter((post) =>
+                    allFollowedUsers1.includes(post.username)
+                );
+
+                return followedUsersPosts;
+                // console.log("followedUsersPosts", followedUsersPosts);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    const selectedPosts = getSelectedPosts();
+
     const handleGetSelectedUser = async (selectedUser) => {
         const result = await getSelectedUserDetail({ user: selectedUser });
         navigate(`/profile/${selectedUser?.username}`);
@@ -342,16 +365,18 @@ export const DataProvider = ({ children }) => {
     };
 
     const getTrendingPosts = () => {
-        const newTrendingPostsArray = [...posts].sort(
-            (a, b) => b.likes.likeCount - a.likes.likeCount
-        );
+        const newTrendingPostsArray =
+            selectedPosts &&
+            [...selectedPosts].sort(
+                (a, b) => b.likes.likeCount - a.likes.likeCount
+            );
         return newTrendingPostsArray;
     };
 
     const loginAsGuest = async (e) => {
         e.preventDefault();
         setLoading(true);
-        console.log("Hello")
+        console.log("Hello");
         try {
             const data = {
                 username: "adarshbalika",
@@ -394,6 +419,7 @@ export const DataProvider = ({ children }) => {
                 category,
                 filter,
                 bookmarks,
+                selectedPosts,
                 setLoading,
                 handleGetSelectedUser,
                 handleLike,
