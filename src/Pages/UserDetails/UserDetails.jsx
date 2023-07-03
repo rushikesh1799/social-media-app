@@ -140,8 +140,18 @@ const UserDetails = () => {
 
                                 {userObject.username === user.username ? (
                                     <div>
-                                        <Button onClick={handleOpen}>
-                                            Edit
+                                        <Button
+                                            style={{
+                                                cursor: "pointer",
+                                                border: "none",
+                                                color: "#000",
+                                                fontWeight: "600",
+                                                borderRadius: "1.5rem",
+                                                padding: "0.6rem 1.2rem",
+                                            }}
+                                            onClick={handleOpen}
+                                        >
+                                            Edit Profile
                                         </Button>
                                         <Modal
                                             open={open}
