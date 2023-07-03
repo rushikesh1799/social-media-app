@@ -12,7 +12,7 @@
     border-radius: 5px;
 
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
-
+    position: absolute;
 
 }
 
@@ -80,4 +80,15 @@
     position: absolute;
     right: 8px;
     top: 8px;
+}
+
+.login-video-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+.login-video-container video {
+    object-fit: cover;
+    opacity: 0.4;
 }

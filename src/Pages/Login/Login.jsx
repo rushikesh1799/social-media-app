@@ -1,4 +1,5 @@
 import axios from "axios";
+import ReactPlayer from "react-player";
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -56,6 +57,19 @@ const Login = () => {
 
     return (
         <div className="login__page__container">
+            <section className="login-video-container">
+                <ReactPlayer
+                    url="https://res.cloudinary.com/dwegb6a4s/video/upload/v1688355287/Video_for_social_media_Project_mk2kkg.mp4"
+                    playing
+                    playbackRate={1.5}
+                    muted
+                    loop
+                    controls={false}
+                    width={"100%"}
+                    height={"100%"}
+                />
+            </section>
+
             <div className="form-container">
                 <h1>Login</h1>
                 <br />

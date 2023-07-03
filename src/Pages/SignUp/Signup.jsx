@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import ReactPlayer from "react-player";
 
 import "./Signup.css";
 import axios from "axios";
@@ -52,6 +53,19 @@ const Signup = () => {
 
     return (
         <div className="page-container">
+            <section className="login-video-container">
+                <ReactPlayer
+                    url="https://res.cloudinary.com/dwegb6a4s/video/upload/v1688355287/Video_for_social_media_Project_mk2kkg.mp4"
+                    playing
+                    playbackRate={1.5}
+                    muted
+                    loop
+                    controls={false}
+                    width={"100%"}
+                    height={"100%"}
+                />
+            </section>
+
             <div className="signup-form-container">
                 <h1>Register</h1>
                 <br />
