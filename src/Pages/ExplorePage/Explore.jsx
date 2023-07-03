@@ -9,13 +9,8 @@ import { useEffect } from "react";
 import Header from "../../Component/Header/Header";
 
 const Explore = () => {
-    const {
-        posts,
-        category,
-        handleCategory,
-        getCategoryPosts,
-        getTrendingPosts,
-    } = useContext(DataContext);
+    const { posts, category, handleCategory, getCategoryPosts } =
+        useContext(DataContext);
 
     // const getCategoryPosts = () => {
     //     const getPosts = posts?.filter(
@@ -24,19 +19,19 @@ const Explore = () => {
     //     return getPosts;
     // };
 
-    // const getTrendingPosts = () => {
-    //     const newTrendingPostsArray = [...posts].sort(
-    //         (a, b) => b.likes.likeCount - a.likes.likeCount
-    //     );
-    //     return newTrendingPostsArray;
-    // };
+    const getTrendingPostsOnExplore = () => {
+        const newTrendingPostsArray = [...posts].sort(
+            (a, b) => b.likes.likeCount - a.likes.likeCount
+        );
+        return newTrendingPostsArray;
+    };
 
     // console.log(getTrendingPosts());
 
     const postsToRender =
         category !== "trending"
             ? getCategoryPosts(category)
-            : getTrendingPosts();
+            : getTrendingPostsOnExplore();
 
     // useEffect(() => console.log(postsToRender), [postsToRender]);
 
@@ -59,9 +54,10 @@ const Explore = () => {
                             Technology
                         </button>
                     </div>
-                    {postsToRender.map((post) => (
-                        <Post post={post} key={post._id} />
-                    ))}
+                    {postsToRender &&
+                        postsToRender.map((post) => (
+                            <Post post={post} key={post._id} />
+                        ))}
                 </div>
                 <SuggUsers />
             </div>
