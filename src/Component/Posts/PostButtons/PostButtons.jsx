@@ -291,6 +291,7 @@ const PostButtons = ({ post }) => {
                           .includes(post.username) ? (
                         <div>
                             <button
+                                className="follow_btn"
                                 onClick={() =>
                                     handleUnFollowUser(
                                         getFollowedAccDetails(post.username)
@@ -303,6 +304,7 @@ const PostButtons = ({ post }) => {
                     ) : (
                         <div>
                             <button
+                                className="follow_btn"
                                 onClick={() =>
                                     handleFollowUser(
                                         getFollowedAccDetails(post.username)

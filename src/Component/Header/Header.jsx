@@ -7,7 +7,7 @@ const Header = () => {
     return (
         <div className="header__container">
             <NavLink to="/home" className="logo">
-                My Social Circle
+                SnapVerse
             </NavLink>
         </div>
     );
