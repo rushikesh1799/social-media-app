@@ -39,6 +39,8 @@ const UserDetails = () => {
 
     const { user } = useContext(AuthContext);
 
+    const [currentEditPhoto, setCurrentEditPhoto] = useState(user.profilePhoto);
+
     const navigate = useNavigate();
 
     const fetchUserDetails = async () => {
@@ -76,7 +78,7 @@ const UserDetails = () => {
 
     const loggedInUser = getLoggedInUser();
 
-    // console.log(loggedInUser)
+    // console.log("currentEditPhoto", currentEditPhoto);
 
     const followingUsers =
         loggedInUser && loggedInUser.following.map((user) => user.username);
@@ -95,6 +97,15 @@ const UserDetails = () => {
     useEffect(() => {
         fetchUserDetails();
     }, [posts]);
+
+    const young_man_avatar =
+        "https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png";
+    const young_woman_avatar =
+        "https://cdn-icons-png.flaticon.com/512/780/780248.png?w=740&t=st=1688360623~exp=1688361223~hmac=890153032313510d77baa08998bd740659dd73256031a10cd613c0dde79faf32";
+    const young__boy__avatar =
+        "https://cdn-icons-png.flaticon.com/512/163/163812.png?w=740&t=st=1688360714~exp=1688361314~hmac=98805adc5001adef0666c2abd851fbb9faae44cdd8c51d13266fef95b0447128";
+    const young__girl__avatar =
+        "https://cdn-icons-png.flaticon.com/512/1154/1154435.png?w=740&t=st=1688360790~exp=1688361390~hmac=60029e2b370aa738f69bfc814a7db6b4ae6b6b09f8cd7d5a8017f25339f81c9c";
 
     // useEffect(() => {
     //     console.log("updatedUserDetails", updatedUserDetails);
@@ -173,6 +184,113 @@ const UserDetails = () => {
                                                     component="div"
                                                 >
                                                     <div>
+                                                        <div className="edit__profile__img__container">
+                                                            <img
+                                                                className="user__edit__profile__photo"
+                                                                src={
+                                                                    currentEditPhoto
+                                                                }
+                                                                alt="user-photo"
+                                                            />
+                                                        </div>
+                                                        <div className="avatars-section">
+                                                            <p>
+                                                                Choose a picture
+                                                                from existing
+                                                                avatars
+                                                            </p>
+                                                            <div class="avatar-container">
+                                                                <div>
+                                                                    <img
+                                                                        className="avatar-img"
+                                                                        src={
+                                                                            young_man_avatar
+                                                                        }
+                                                                        onClick={() => {
+                                                                            setCurrentEditPhoto(
+                                                                                young_man_avatar
+                                                                            );
+                                                                            setUpdatedUserDetails(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    profilePhoto:
+                                                                                        young_man_avatar,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <img
+                                                                        className="avatar-img"
+                                                                        src={
+                                                                            young_woman_avatar
+                                                                        }
+                                                                        onClick={() => {
+                                                                            setCurrentEditPhoto(
+                                                                                young_woman_avatar
+                                                                            );
+                                                                            setUpdatedUserDetails(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    profilePhoto:
+                                                                                        young_woman_avatar,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <img
+                                                                        className="avatar-img"
+                                                                        src={
+                                                                            young__boy__avatar
+                                                                        }
+                                                                        onClick={() => {
+                                                                            setCurrentEditPhoto(
+                                                                                young__boy__avatar
+                                                                            );
+                                                                            setUpdatedUserDetails(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    profilePhoto:
+                                                                                        young__boy__avatar,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <img
+                                                                        className="avatar-img"
+                                                                        src={
+                                                                            young__girl__avatar
+                                                                        }
+                                                                        onClick={() => {
+                                                                            setCurrentEditPhoto(
+                                                                                young__girl__avatar
+                                                                            );
+                                                                            setUpdatedUserDetails(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    profilePhoto:
+                                                                                    young__girl__avatar,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                         <label htmlFor="name">
                                                             <div>Name</div>
                                                             <input

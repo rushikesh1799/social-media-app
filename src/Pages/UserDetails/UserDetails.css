@@ -92,3 +92,24 @@
     padding: 0.6rem 1.2rem;
     background-color: red;
 }
+
+.avatar-img {
+    border-radius: 50px;
+    height: 80px;
+    width: 80px;
+}
+
+.avatar-container {
+    display: flex;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.user__edit__profile__photo {
+    background-color: #000;
+    border-radius: 50%;
+    height: 100px;
+    object-fit: cover;
+    opacity: .8;
+    width: 100px;
+}

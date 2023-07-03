@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import "./Navigation.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { DataContext } from "../../context/DataContext";
 
 const Navigation = () => {
     const { user, setToken, setUser } = useContext(AuthContext);
-
+    const { users } = useContext(DataContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -16,6 +17,22 @@ const Navigation = () => {
         // setUser(null);
         // setToken(null);
     };
+
+    // user who is currently logged in
+    const getLoggedInUser = () => {
+        if (users) {
+            try {
+                const loggInUser = users.find(
+                    (selectedUser) => selectedUser.username === user.username
+                );
+                return loggInUser;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    const loggedInUser = getLoggedInUser();
 
     return (
         <div className="primary-nav">
@@ -57,7 +74,7 @@ const Navigation = () => {
             >
                 <div className="User__details__img">
                     <img
-                        src={user?.profilePhoto}
+                        src={loggedInUser?.profilePhoto}
                         alt="profile-pic"
                         className="profile-photo"
                     />
