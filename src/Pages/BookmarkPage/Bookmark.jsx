@@ -21,9 +21,13 @@ const Bookmark = () => {
             <Navigation />
             <div className="bookmark-primary-container">
                 <h1>Bookmark Page</h1>
-                {allBookmarks.map((post) => (
-                    <Post post={post} key={post._id} />
-                ))}
+                {allBookmarks.length === 0 ? (
+                    <h2>No Bookmarks Found 😔</h2>
+                ) : (
+                    allBookmarks.map((post) => (
+                        <Post post={post} key={post._id} />
+                    ))
+                )}
             </div>
 
             <SuggUsers />
