@@ -13,6 +13,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import Header from "../../Component/Header/Header";
 
 const UserDetails = () => {
     const style = {
@@ -112,334 +113,380 @@ const UserDetails = () => {
     // }, [updatedUserDetails]);
 
     return (
-        <div className="profile__page__container">
-            <Navigation />
-            <div className="profile__page__main__container">
-                <header className="user__header">
-                    <i
-                        className="fa fa-arrow-left left__arrow"
-                        aria-hidden="true"
-                        onClick={() => navigate(-1)}
-                    ></i>
-                    <div className="user__details__heading">
-                        <h3 className="user__fullname">
-                            {userObject?.fullName}
-                        </h3>
-                        <span>
-                            {userPostsDetails.length === 1
-                                ? `${userPostsDetails.length} post`
-                                : `${userPostsDetails.length} posts`}{" "}
-                        </span>
-                    </div>
-                </header>
+        <div>
+            <Header />
+            <div className="profile__page__container">
+                <Navigation />
+                <div className="profile__page__main__container">
+                    <header className="user__header">
+                        <i
+                            className="fa fa-arrow-left left__arrow"
+                            aria-hidden="true"
+                            onClick={() => navigate(-1)}
+                        ></i>
+                        <div className="user__details__heading">
+                            <h3 className="user__fullname">
+                                {userObject?.firstName} {userObject?.lastName}
+                            </h3>
+                            <span>
+                                {userPostsDetails.length === 1
+                                    ? `${userPostsDetails.length} post`
+                                    : `${userPostsDetails.length} posts`}{" "}
+                            </span>
+                        </div>
+                    </header>
 
-                <section className="user__profile__heading">
-                    <img
-                        className="user__profile__img"
-                        src={userObject?.profilePhoto}
-                        alt="profile-photo"
-                    />
-                    {userObject && (
-                        <div className="user__profile__texts">
-                            <div className="user__1st__sec">
-                                <div className="user__fullname__details">
-                                    <h3 className="user__fullname">
-                                        {userObject.fullName}
-                                    </h3>
-                                    <span>@{userObject.username}</span>
-                                </div>
+                    <section className="user__profile__heading">
+                        <img
+                            className="user__profile__img"
+                            src={userObject?.profilePhoto}
+                            alt="profile-photo"
+                        />
+                        {userObject && (
+                            <div className="user__profile__texts">
+                                <div className="user__1st__sec">
+                                    <div className="user__fullname__details">
+                                        <h3 className="user__fullname">
+                                            {userObject?.firstName}{" "}
+                                            {userObject?.lastName}
+                                        </h3>
+                                        <span>@{userObject.username}</span>
+                                    </div>
 
-                                {userObject.username === user.username ? (
-                                    <div>
-                                        <Button
-                                            style={{
-                                                cursor: "pointer",
-                                                border: "none",
-                                                color: "#000",
-                                                fontWeight: "600",
-                                                borderRadius: "1.5rem",
-                                                padding: "0.6rem 1.2rem",
-                                            }}
-                                            onClick={handleOpen}
-                                        >
-                                            Edit Profile
-                                        </Button>
-                                        <Modal
-                                            open={open}
-                                            onClose={handleClose}
-                                            aria-labelledby="modal-modal-title"
-                                            aria-describedby="modal-modal-description"
-                                        >
-                                            <Box sx={style}>
-                                                <Typography
-                                                    id="modal-modal-title"
-                                                    variant="h6"
-                                                    component="h2"
-                                                >
-                                                    Edit Profile
-                                                </Typography>
-                                                <Typography
-                                                    id="modal-modal-description"
-                                                    sx={{ mt: 2 }}
-                                                    component="div"
-                                                >
-                                                    <div>
-                                                        <div className="edit__profile__img__container">
-                                                            <img
-                                                                className="user__edit__profile__photo"
-                                                                src={
-                                                                    currentEditPhoto
-                                                                }
-                                                                alt="user-photo"
-                                                            />
-                                                        </div>
-                                                        <div className="avatars-section">
-                                                            <p>
-                                                                Choose a picture
-                                                                from existing
-                                                                avatars
-                                                            </p>
-                                                            <div class="avatar-container">
-                                                                <div>
-                                                                    <img
-                                                                        className="avatar-img"
-                                                                        src={
-                                                                            young_man_avatar
-                                                                        }
-                                                                        onClick={() => {
-                                                                            setCurrentEditPhoto(
+                                    {userObject.username === user.username ? (
+                                        <div>
+                                            <Button
+                                                style={{
+                                                    cursor: "pointer",
+                                                    border: "none",
+                                                    color: "#000",
+                                                    fontWeight: "600",
+                                                    borderRadius: "1.5rem",
+                                                    padding: "0.6rem 1.2rem",
+                                                }}
+                                                onClick={handleOpen}
+                                            >
+                                                Edit Profile
+                                            </Button>
+                                            <Modal
+                                                open={open}
+                                                onClose={handleClose}
+                                                aria-labelledby="modal-modal-title"
+                                                aria-describedby="modal-modal-description"
+                                            >
+                                                <Box sx={style}>
+                                                    <Typography
+                                                        id="modal-modal-title"
+                                                        variant="h6"
+                                                        component="h2"
+                                                    >
+                                                        Edit Profile
+                                                    </Typography>
+                                                    <Typography
+                                                        id="modal-modal-description"
+                                                        sx={{ mt: 2 }}
+                                                        component="div"
+                                                    >
+                                                        <div>
+                                                            <div className="edit__profile__img__container">
+                                                                <img
+                                                                    className="user__edit__profile__photo"
+                                                                    src={
+                                                                        currentEditPhoto
+                                                                    }
+                                                                    alt="user-photo"
+                                                                />
+                                                            </div>
+                                                            <div className="avatars-section">
+                                                                <p>
+                                                                    Choose a
+                                                                    picture from
+                                                                    existing
+                                                                    avatars
+                                                                </p>
+                                                                <div class="avatar-container">
+                                                                    <div>
+                                                                        <img
+                                                                            className="avatar-img"
+                                                                            src={
                                                                                 young_man_avatar
-                                                                            );
-                                                                            setUpdatedUserDetails(
-                                                                                (
-                                                                                    prev
-                                                                                ) => ({
-                                                                                    ...prev,
-                                                                                    profilePhoto:
-                                                                                        young_man_avatar,
-                                                                                })
-                                                                            );
-                                                                        }}
-                                                                    />
-                                                                </div>
-                                                                <div>
-                                                                    <img
-                                                                        className="avatar-img"
-                                                                        src={
-                                                                            young_woman_avatar
-                                                                        }
-                                                                        onClick={() => {
-                                                                            setCurrentEditPhoto(
+                                                                            }
+                                                                            onClick={() => {
+                                                                                setCurrentEditPhoto(
+                                                                                    young_man_avatar
+                                                                                );
+                                                                                setUpdatedUserDetails(
+                                                                                    (
+                                                                                        prev
+                                                                                    ) => ({
+                                                                                        ...prev,
+                                                                                        profilePhoto:
+                                                                                            young_man_avatar,
+                                                                                    })
+                                                                                );
+                                                                            }}
+                                                                        />
+                                                                    </div>
+                                                                    <div>
+                                                                        <img
+                                                                            className="avatar-img"
+                                                                            src={
                                                                                 young_woman_avatar
-                                                                            );
-                                                                            setUpdatedUserDetails(
-                                                                                (
-                                                                                    prev
-                                                                                ) => ({
-                                                                                    ...prev,
-                                                                                    profilePhoto:
-                                                                                        young_woman_avatar,
-                                                                                })
-                                                                            );
-                                                                        }}
-                                                                    />
-                                                                </div>
-                                                                <div>
-                                                                    <img
-                                                                        className="avatar-img"
-                                                                        src={
-                                                                            young__boy__avatar
-                                                                        }
-                                                                        onClick={() => {
-                                                                            setCurrentEditPhoto(
+                                                                            }
+                                                                            onClick={() => {
+                                                                                setCurrentEditPhoto(
+                                                                                    young_woman_avatar
+                                                                                );
+                                                                                setUpdatedUserDetails(
+                                                                                    (
+                                                                                        prev
+                                                                                    ) => ({
+                                                                                        ...prev,
+                                                                                        profilePhoto:
+                                                                                            young_woman_avatar,
+                                                                                    })
+                                                                                );
+                                                                            }}
+                                                                        />
+                                                                    </div>
+                                                                    <div>
+                                                                        <img
+                                                                            className="avatar-img"
+                                                                            src={
                                                                                 young__boy__avatar
-                                                                            );
-                                                                            setUpdatedUserDetails(
-                                                                                (
-                                                                                    prev
-                                                                                ) => ({
-                                                                                    ...prev,
-                                                                                    profilePhoto:
-                                                                                        young__boy__avatar,
-                                                                                })
-                                                                            );
-                                                                        }}
-                                                                    />
-                                                                </div>
-                                                                <div>
-                                                                    <img
-                                                                        className="avatar-img"
-                                                                        src={
-                                                                            young__girl__avatar
-                                                                        }
-                                                                        onClick={() => {
-                                                                            setCurrentEditPhoto(
+                                                                            }
+                                                                            onClick={() => {
+                                                                                setCurrentEditPhoto(
+                                                                                    young__boy__avatar
+                                                                                );
+                                                                                setUpdatedUserDetails(
+                                                                                    (
+                                                                                        prev
+                                                                                    ) => ({
+                                                                                        ...prev,
+                                                                                        profilePhoto:
+                                                                                            young__boy__avatar,
+                                                                                    })
+                                                                                );
+                                                                            }}
+                                                                        />
+                                                                    </div>
+                                                                    <div>
+                                                                        <img
+                                                                            className="avatar-img"
+                                                                            src={
                                                                                 young__girl__avatar
-                                                                            );
-                                                                            setUpdatedUserDetails(
-                                                                                (
-                                                                                    prev
-                                                                                ) => ({
-                                                                                    ...prev,
-                                                                                    profilePhoto:
-                                                                                    young__girl__avatar,
-                                                                                })
-                                                                            );
-                                                                        }}
-                                                                    />
+                                                                            }
+                                                                            onClick={() => {
+                                                                                setCurrentEditPhoto(
+                                                                                    young__girl__avatar
+                                                                                );
+                                                                                setUpdatedUserDetails(
+                                                                                    (
+                                                                                        prev
+                                                                                    ) => ({
+                                                                                        ...prev,
+                                                                                        profilePhoto:
+                                                                                            young__girl__avatar,
+                                                                                    })
+                                                                                );
+                                                                            }}
+                                                                        />
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <label htmlFor="name">
-                                                            <div>Name</div>
-                                                            <input
-                                                                type="text"
-                                                                id="name"
-                                                                value={
-                                                                    updatedUserDetails.fullName
-                                                                }
-                                                                onChange={(e) =>
-                                                                    setUpdatedUserDetails(
-                                                                        (
-                                                                            prev
-                                                                        ) => ({
-                                                                            ...prev,
-                                                                            fullName:
-                                                                                e
+                                                            <label htmlFor="name">
+                                                                <div>
+                                                                    First Name:
+                                                                </div>
+                                                                <input
+                                                                    type="text"
+                                                                    id="name"
+                                                                    value={
+                                                                        updatedUserDetails.firstName
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setUpdatedUserDetails(
+                                                                            (
+                                                                                prev
+                                                                            ) => ({
+                                                                                ...prev,
+                                                                                firstName:
+                                                                                    e
+                                                                                        .target
+                                                                                        .value,
+                                                                            })
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </label>
+                                                            <label htmlFor="name">
+                                                                <div>
+                                                                    Last Name:
+                                                                </div>
+                                                                <input
+                                                                    type="text"
+                                                                    id="name"
+                                                                    value={
+                                                                        updatedUserDetails.lastName
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setUpdatedUserDetails(
+                                                                            (
+                                                                                prev
+                                                                            ) => ({
+                                                                                ...prev,
+                                                                                lastName:
+                                                                                    e
+                                                                                        .target
+                                                                                        .value,
+                                                                            })
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </label>
+                                                            <label htmlFor="bio">
+                                                                <div>Bio</div>
+                                                                <input
+                                                                    type="text"
+                                                                    id="bio"
+                                                                    value={
+                                                                        updatedUserDetails.bio
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setUpdatedUserDetails(
+                                                                            (
+                                                                                prev
+                                                                            ) => ({
+                                                                                ...prev,
+                                                                                bio: e
                                                                                     .target
                                                                                     .value,
-                                                                        })
-                                                                    )
-                                                                }
-                                                            />
-                                                        </label>
-                                                        <label htmlFor="bio">
-                                                            <div>Bio</div>
-                                                            <input
-                                                                type="text"
-                                                                id="bio"
-                                                                value={
-                                                                    updatedUserDetails.bio
-                                                                }
-                                                                onChange={(e) =>
-                                                                    setUpdatedUserDetails(
-                                                                        (
-                                                                            prev
-                                                                        ) => ({
-                                                                            ...prev,
-                                                                            bio: e
-                                                                                .target
-                                                                                .value,
-                                                                        })
-                                                                    )
-                                                                }
-                                                            />
-                                                        </label>
-                                                        <label htmlFor="website">
-                                                            <div>Website</div>
-                                                            <input
-                                                                type="text"
-                                                                id="website"
-                                                                value={
-                                                                    updatedUserDetails.website_link
-                                                                }
-                                                                onChange={(e) =>
-                                                                    setUpdatedUserDetails(
-                                                                        (
-                                                                            prev
-                                                                        ) => ({
-                                                                            ...prev,
-                                                                            website_link:
-                                                                                e
-                                                                                    .target
-                                                                                    .value,
-                                                                        })
-                                                                    )
-                                                                }
-                                                            />
-                                                        </label>
-                                                    </div>
-                                                </Typography>
-                                                <Button onClick={handleClose}>
-                                                    Discard
-                                                </Button>
-                                                <Button
-                                                    onClick={() => {
-                                                        handleEditUserDetails(
-                                                            updatedUserDetails
-                                                        );
-                                                        handleClose();
-                                                    }}
-                                                >
-                                                    Update
-                                                </Button>
-                                            </Box>
-                                        </Modal>
-                                    </div>
-                                ) : followingUsers &&
-                                  followingUsers.includes(
-                                      userObject.username
-                                  ) ? (
+                                                                            })
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </label>
+                                                            <label htmlFor="website">
+                                                                <div>
+                                                                    Website
+                                                                </div>
+                                                                <input
+                                                                    type="text"
+                                                                    id="website"
+                                                                    value={
+                                                                        updatedUserDetails.website_link
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setUpdatedUserDetails(
+                                                                            (
+                                                                                prev
+                                                                            ) => ({
+                                                                                ...prev,
+                                                                                website_link:
+                                                                                    e
+                                                                                        .target
+                                                                                        .value,
+                                                                            })
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </label>
+                                                        </div>
+                                                    </Typography>
+                                                    <Button
+                                                        onClick={handleClose}
+                                                    >
+                                                        Discard
+                                                    </Button>
+                                                    <Button
+                                                        onClick={() => {
+                                                            handleEditUserDetails(
+                                                                updatedUserDetails
+                                                            );
+                                                            handleClose();
+                                                        }}
+                                                    >
+                                                        Update
+                                                    </Button>
+                                                </Box>
+                                            </Modal>
+                                        </div>
+                                    ) : followingUsers &&
+                                      followingUsers.includes(
+                                          userObject.username
+                                      ) ? (
+                                        <div>
+                                            <button
+                                                onClick={() =>
+                                                    handleUnFollowUser(
+                                                        userObject
+                                                    )
+                                                }
+                                            >
+                                                UnFollow
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <button
+                                                className="follow_btn"
+                                                onClick={() =>
+                                                    handleFollowUser(userObject)
+                                                }
+                                            >
+                                                Follow
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="user__2st__sec">
+                                    <span>{userObject?.bio}</span>
                                     <div>
-                                        <button
-                                            onClick={() =>
-                                                handleUnFollowUser(userObject)
-                                            }
-                                        >
-                                            UnFollow
-                                        </button>
+                                        <span>
+                                            <i
+                                                className="fa fa-globe"
+                                                aria-hidden="true"
+                                            ></i>
+                                            <a
+                                                href={userObject?.website_link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {userObject?.website_link}
+                                            </a>
+                                        </span>
                                     </div>
-                                ) : (
-                                    <div>
-                                        <button
-                                            className="follow_btn"
-                                            onClick={() =>
-                                                handleFollowUser(userObject)
-                                            }
-                                        >
-                                            Follow
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                            <div className="user__2st__sec">
-                                <span>{userObject?.bio}</span>
-                                <div>
+                                </div>
+                                <div className="user__3st__sec">
                                     <span>
-                                        <i
-                                            className="fa fa-globe"
-                                            aria-hidden="true"
-                                        ></i>
-                                        <a
-                                            href={userObject?.website_link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            {userObject?.website_link}
-                                        </a>
+                                        {userPostsDetails.length === 1
+                                            ? `${userPostsDetails.length} Post`
+                                            : `${userPostsDetails.length} Posts`}{" "}
                                     </span>
+                                    <span>{`${userObject.following.length} Following`}</span>
+                                    <span>{`${userObject.followers.length} Followers`}</span>
                                 </div>
                             </div>
-                            <div className="user__3st__sec">
-                                <span>
-                                    {userPostsDetails.length === 1
-                                        ? `${userPostsDetails.length} Post`
-                                        : `${userPostsDetails.length} Posts`}{" "}
-                                </span>
-                                <span>{`${userObject.following.length} Following`}</span>
-                                <span>{`${userObject.followers.length} Followers`}</span>
-                            </div>
-                        </div>
-                    )}
-                </section>
+                        )}
+                    </section>
 
-                {userPostsDetails.map((post) => (
-                    <Post post={post} key={post._id} />
-                ))}
+                    {userPostsDetails.map((post) => (
+                        <Post post={post} key={post._id} />
+                    ))}
+                </div>
+
+                <SuggUsers />
             </div>
-
-            <SuggUsers />
         </div>
     );
 };

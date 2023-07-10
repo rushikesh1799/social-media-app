@@ -5,6 +5,7 @@ import SuggUsers from "../../Component/SuggUsers/SuggUsers";
 import "./Bookmark.css";
 import { DataContext } from "../../context/DataContext";
 import Post from "../../Component/Posts/Post/Post";
+import Header from "../../Component/Header/Header";
 
 const Bookmark = () => {
     const { bookmarks, posts } = useContext(DataContext);
@@ -17,20 +18,23 @@ const Bookmark = () => {
 
     console.log(allBookmarks);
     return (
-        <div className="home-primary-container">
-            <Navigation />
-            <div className="bookmark-primary-container">
-                <h1>Bookmark Page</h1>
-                {allBookmarks.length === 0 ? (
-                    <h2>No Bookmarks Found 😔</h2>
-                ) : (
-                    allBookmarks.map((post) => (
-                        <Post post={post} key={post._id} />
-                    ))
-                )}
-            </div>
+        <div>
+            <Header />
+            <div className="home-primary-container">
+                <Navigation />
+                <div className="bookmark-primary-container">
+                    <h1>Bookmark Page</h1>
+                    {allBookmarks.length === 0 ? (
+                        <h2>No Bookmarks Found 😔</h2>
+                    ) : (
+                        allBookmarks.map((post) => (
+                            <Post post={post} key={post._id} />
+                        ))
+                    )}
+                </div>
 
-            <SuggUsers />
+                <SuggUsers />
+            </div>
         </div>
     );
 };
