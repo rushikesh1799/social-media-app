@@ -35,36 +35,47 @@ const SuggUsers = () => {
         <div className="sugg-user-main-container">
             <span className="sugg_users_header">Suggested Users</span>
             <hr />
-            {moreFilteredUsers.map((user) => (
-                <div key={user.id} className="sugg-user-container">
-                    <div
-                        className="sugg-user-details"
-                        onClick={() => handleGetSelectedUser(user)}
-                    >
-                        <div className="sugg-user-photo">
-                            <img
-                                src={user.profilePhoto}
-                                alt="profile-pic"
-                                className="sugg__users__profile__photo"
-                            />
-                        </div>
-                        <div className="user-info">
-                            <span>{user.firstName + " " + user.lastName}</span>{" "}
-                            <span>@{user.username}</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button
-                            className="follow_btn"
-                            onClick={() => handleFollowUser(user)}
-                        >
-                            Follow{" "}
-                            <i className="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                    </div>
+            {moreFilteredUsers.length === 0 ? (
+                <div className="sugg-user-container">
+                    <h3 className="sugg-user-no-sugg">No more suggestions!</h3>
                 </div>
-            ))}
+            ) : (
+                moreFilteredUsers.map((user) => (
+                    <div key={user.id} className="sugg-user-container">
+                        <div
+                            className="sugg-user-details"
+                            onClick={() => handleGetSelectedUser(user)}
+                        >
+                            <div className="sugg-user-photo">
+                                <img
+                                    src={user.profilePhoto}
+                                    alt="profile-pic"
+                                    className="sugg__users__profile__photo"
+                                />
+                            </div>
+                            <div className="user-info">
+                                <span>
+                                    {user.firstName + " " + user.lastName}
+                                </span>{" "}
+                                <span>@{user.username}</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button
+                                className="follow_btn"
+                                onClick={() => handleFollowUser(user)}
+                            >
+                                Follow{" "}
+                                <i
+                                    className="fa fa-plus"
+                                    aria-hidden="true"
+                                ></i>
+                            </button>
+                        </div>
+                    </div>
+                ))
+            )}
         </div>
     );
 };

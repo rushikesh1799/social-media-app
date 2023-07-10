@@ -48,8 +48,8 @@ export const DataProvider = ({ children }) => {
     const { users, posts, category, bookmarks, filter } = state;
 
     useEffect(() => {
-        console.log("posts:", posts);
-    }, [posts]);
+        console.log("users:", users);
+    }, [users]);
 
     // console.log("bookmarks", bookmarks);
 
@@ -125,8 +125,10 @@ export const DataProvider = ({ children }) => {
                     )
                     .following.map((user) => user.username);
 
-                const followedUsersPosts = posts.filter((post) =>
-                    allFollowedUsers1.includes(post.username)
+                const followedUsersPosts = posts.filter(
+                    (post) =>
+                        allFollowedUsers1.includes(post.username) ||
+                        post.username === user.username
                 );
 
                 return followedUsersPosts;
@@ -212,6 +214,7 @@ export const DataProvider = ({ children }) => {
                 payload: { posts: result.data.posts },
             });
         }
+        navigate("/home");
     };
 
     const handleFollowUser = async (user) => {
@@ -268,9 +271,13 @@ export const DataProvider = ({ children }) => {
         }
     };
 
-    const handleAddPost = async (postContent) => {
+    const handleAddPost = async (postContent, postImageSource) => {
         const result = await addPost({
-            postContent: { content: postContent },
+            postContent: {
+                content: postContent,
+                comments: [],
+                postImage: postImageSource,
+            },
             encodedToken: token,
         });
         console.log(result);
@@ -342,6 +349,7 @@ export const DataProvider = ({ children }) => {
     };
 
     const handlePostComment = async (e, post, cmtContent) => {
+        console.log(post);
         e.preventDefault();
         const result = await AddCommentToPost({
             post: post,
@@ -359,7 +367,7 @@ export const DataProvider = ({ children }) => {
 
     const getCategoryPosts = () => {
         const getPosts = posts?.filter(
-            (post) => post?.category.toLowerCase() === category
+            (post) => post?.category?.toLowerCase() === category
         );
         return getPosts;
     };

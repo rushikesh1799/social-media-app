@@ -284,37 +284,38 @@ const PostButtons = ({ post }) => {
                 )}
 
                 <div>
-                    {user.username === post.username ? (
-                        <DotsMenu post={post} />
-                    ) : loggedInUser[0]?.following
-                          .map((user) => user.username)
-                          .includes(post.username) ? (
-                        <div>
-                            <button
-                                className="follow_btn"
-                                onClick={() =>
-                                    handleUnFollowUser(
-                                        getFollowedAccDetails(post.username)
-                                    )
-                                }
-                            >
-                                UnFollow
-                            </button>
-                        </div>
-                    ) : (
-                        <div>
-                            <button
-                                className="follow_btn"
-                                onClick={() =>
-                                    handleFollowUser(
-                                        getFollowedAccDetails(post.username)
-                                    )
-                                }
-                            >
-                                Follow
-                            </button>
-                        </div>
-                    )}
+                    {post &&
+                        (user?.username === post?.username ? (
+                            <DotsMenu post={post} />
+                        ) : loggedInUser[0]?.following
+                              .map((user) => user.username)
+                              .includes(post.username) ? (
+                            <div>
+                                <button
+                                    className="follow_btn"
+                                    onClick={() =>
+                                        handleUnFollowUser(
+                                            getFollowedAccDetails(post.username)
+                                        )
+                                    }
+                                >
+                                    UnFollow
+                                </button>
+                            </div>
+                        ) : (
+                            <div>
+                                <button
+                                    className="follow_btn"
+                                    onClick={() =>
+                                        handleFollowUser(
+                                            getFollowedAccDetails(post.username)
+                                        )
+                                    }
+                                >
+                                    Follow
+                                </button>
+                            </div>
+                        ))}
                 </div>
             </div>
         </div>

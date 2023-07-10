@@ -12,6 +12,7 @@ import NewComment from "../NewComment/NewComment";
 import { AuthContext } from "../../../context/AuthContext";
 import { useEffect } from "react";
 import axios from "axios";
+import Header from "../../Header/Header";
 
 const PostDetails = () => {
     const { user } = useContext(AuthContext);
@@ -45,22 +46,25 @@ const PostDetails = () => {
 
     return (
         // <div>{postID}</div>
-        <div className="home-primary-container">
-            <Navigation />
-            <div className="post-mid-section">
-                <header className="post-header">
-                    <i
-                        className="fa fa-arrow-left left__arrow"
-                        aria-hidden="true"
-                        onClick={() => navigate(-1)}
-                    ></i>
-                    <h2 className="post__heading">Post</h2>
-                </header>
-                <Post post={post} />
-                <NewComment user={user} CurrentPost={post} />
-                <PostComments post={post} />
+        <div>
+            <Header />
+            <div className="home-primary-container">
+                <Navigation />
+                <div className="post-mid-section">
+                    <header className="post-header">
+                        <i
+                            className="fa fa-arrow-left left__arrow"
+                            aria-hidden="true"
+                            onClick={() => navigate(-1)}
+                        ></i>
+                        <h2 className="post__heading">Post</h2>
+                    </header>
+                    <Post post={post} />
+                    <NewComment user={user} CurrentPost={post} />
+                    <PostComments post={post} />
+                </div>
+                <SuggUsers />
             </div>
-            <SuggUsers />
         </div>
     );
 };

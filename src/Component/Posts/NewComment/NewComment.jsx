@@ -9,39 +9,28 @@ import { DataContext } from "../../../context/DataContext";
 const NewComment = ({ user, CurrentPost }) => {
     const [newCommentText, setNewCommentText] = useState("");
 
-    const { posts, dispatch, handlePostComment } = useContext(DataContext);
+    const { users, handlePostComment } = useContext(DataContext);
 
-    // useEffect(() => {
-    //     console.log(newCommentText);
-    // }, [newCommentText]);
+    const getLoggedInUser = () => {
+        if (users) {
+            try {
+                const loggInUser = users.find(
+                    (selectedUser) => selectedUser.username === user.username
+                );
+                return loggInUser;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
 
-    // const handleNewComment = (e, newComment) => {
-    //     e.preventDefault();
-    //     const newCommentObj = {
-    //         ...user,
-    //         _id: uuid(),
-    //         profileAvatar: user.profilePhoto,
-    //         comment: newComment,
-    //     };
-    //     // console.log("newCommentObj", newCommentObj);
-    //     const UpdatedPosts = posts.map((post) =>
-    //         post._id === CurrentPost._id
-    //             ? {
-    //                   ...post,
-    //                   comments: [...post.comments, { ...newCommentObj }],
-    //               }
-    //             : post
-    //     );
-    //     console.log(UpdatedPosts);
-    //     dispatch({ type: "ADD_COMMENT", payload: { posts: UpdatedPosts } });
-    //     setNewCommentText("");
-    // };
+    const loggedInUser = getLoggedInUser();
 
     return (
         <div className="new__comment__container">
             <div className="sugg-user-photo">
                 <img
-                    src={user?.profilePhoto}
+                    src={loggedInUser?.profilePhoto}
                     alt="profile-pic"
                     className="profile-photo"
                 />
