@@ -37,6 +37,16 @@ const Explore = () => {
 
     // console.log("postsToRender", postsToRender);
 
+    const style1 = {
+        color: "white",
+        backgroundColor: "black",
+    };
+
+    const style2 = {
+        padding: "4px 8px",
+        margin: "0px 4px",
+    };
+
     return (
         <div>
             <Header />
@@ -44,13 +54,25 @@ const Explore = () => {
                 <Navigation />
                 <div className="explore-primary-container">
                     <div onClick={(e) => handleCategory(e)}>
-                        <button value="trending" className="btns">
+                        <button
+                            value="trending"
+                            className="btns"
+                            style={category === "trending" ? style1 : style2}
+                        >
                             Trending
                         </button>
-                        <button value="Sports" className="btns">
+                        <button
+                            value="sports"
+                            className="btns"
+                            style={category === "sports" ? style1 : style2}
+                        >
                             Sports
                         </button>
-                        <button value="Technology" className="btns">
+                        <button
+                            value="technology"
+                            className="btns"
+                            style={category === "technology" ? style1 : style2}
+                        >
                             Technology
                         </button>
                     </div>

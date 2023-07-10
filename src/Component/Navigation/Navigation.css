@@ -72,4 +72,14 @@
 
 .User__details__text p {
     margin: 0;
+    font-weight: 600;
+}
+
+.User__details__text span {
+    font-weight: 300;
+}
+
+.nav-container1 a.active {
+    font-weight: bold;
+    /* color: black */
 }

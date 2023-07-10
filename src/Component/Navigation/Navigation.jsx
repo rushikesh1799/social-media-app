@@ -80,8 +80,10 @@ const Navigation = () => {
                     />
                 </div>
                 <div className="User__details__text">
-                    <p>{user?.fullName}</p>
-                    <span>@{user?.username}</span>
+                    <p className="User_fullName">
+                        {loggedInUser?.firstName} {loggedInUser?.lastName}
+                    </p>
+                    <span>@{loggedInUser?.username}</span>
                 </div>
             </div>
         </div>

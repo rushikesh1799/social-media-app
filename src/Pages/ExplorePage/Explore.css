@@ -21,3 +21,12 @@
     color: white;
     background-color: black;
 }
+
+.explore-primary-container a {
+    list-style-type: none;
+    padding: 4px 8px;
+    margin: 0px 4px;
+    border-radius: 8px;
+    background-color: white;
+    text-decoration: none;
+}
