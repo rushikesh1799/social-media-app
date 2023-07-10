@@ -12,10 +12,16 @@ const Signup = () => {
     const { setLoading } = useContext(DataContext);
     const [showPassword, setShowPassword] = useState(false);
     const [signUpInfo, setSignUpInfo] = useState({
-        fullname: "",
+        firstName: "",
+        lastName: "",
+        // fullName: "",
         username: "",
         email: "",
         password: "",
+        profilePhoto:
+            "https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-512.png",
+        bio: "Hey there!",
+        website_link: "https://rushikeshbunge-portfolio.netlify.app/"
     });
 
     const navigate = useNavigate();
@@ -70,16 +76,46 @@ const Signup = () => {
                 <h1>Register</h1>
                 <br />
                 <form onSubmit={handleSignUp} className="signup-form">
-                    <div className="signUp__form__field">
+                    {/* <div className="signUp__form__field">
                         <label>Full Name:</label>
                         <input
                             type="text"
-                            value={signUpInfo.fullname}
+                            value={signUpInfo.fullName}
                             placeholder="Enter your fullname..."
                             onChange={(e) =>
                                 setSignUpInfo((prev) => ({
                                     ...prev,
-                                    fullname: e.target.value,
+                                    fullName: e.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </div> */}
+                    <div className="signUp__form__field">
+                        <label>First Name:</label>
+                        <input
+                            type="text"
+                            value={signUpInfo.firstName}
+                            placeholder="Enter your First Name..."
+                            onChange={(e) =>
+                                setSignUpInfo((prev) => ({
+                                    ...prev,
+                                    firstName: e.target.value,
+                                }))
+                            }
+                            required
+                        />
+                    </div>
+                    <div className="signUp__form__field">
+                        <label>Last Name:</label>
+                        <input
+                            type="text"
+                            value={signUpInfo.lastName}
+                            placeholder="Enter your Last Name..."
+                            onChange={(e) =>
+                                setSignUpInfo((prev) => ({
+                                    ...prev,
+                                    lastName: e.target.value,
                                 }))
                             }
                             required
@@ -90,7 +126,7 @@ const Signup = () => {
                         <input
                             type="text"
                             value={signUpInfo.username}
-                            placeholder="Enter your username..."
+                            placeholder="Enter your Username..."
                             onChange={(e) =>
                                 setSignUpInfo((prev) => ({
                                     ...prev,
@@ -106,7 +142,7 @@ const Signup = () => {
                         <input
                             type="text"
                             value={signUpInfo.email}
-                            placeholder="Enter your email..."
+                            placeholder="Enter your Email..."
                             onChange={(e) =>
                                 setSignUpInfo((prev) => ({
                                     ...prev,
