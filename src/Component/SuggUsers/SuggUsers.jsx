@@ -4,12 +4,15 @@ import { DataContext } from "../../context/DataContext";
 import "./SuggUsers.css";
 import { useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useState } from "react";
 
 const SuggUsers = () => {
     const { users, handleFollowUser, handleGetSelectedUser } =
         useContext(DataContext);
 
     const { user } = useContext(AuthContext);
+
+    const [searchText, setSearchText] = useState("");
 
     // all users excluding the the user who is logged in
     const filteredUsers = users.filter(
@@ -31,16 +34,31 @@ const SuggUsers = () => {
         (user) => !followedUsernames?.includes(user.username)
     );
 
+    const searchedMoreFilterUsers = moreFilteredUsers.filter((user) =>
+        user?.username?.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
         <div className="sugg-user-main-container">
+            <div className="search__container">
+                <input
+                    type="text"
+                    id="searchUser"
+                    value={searchText}
+                    placeholder="Search user..."
+                    className="search__input"
+                    onChange={(e) => setSearchText(e.target.value)}
+                />
+            </div>
+
             <span className="sugg_users_header">Suggested Users</span>
             <hr />
-            {moreFilteredUsers.length === 0 ? (
+            {searchedMoreFilterUsers.length === 0 ? (
                 <div className="sugg-user-container">
                     <h3 className="sugg-user-no-sugg">No more suggestions!</h3>
                 </div>
             ) : (
-                moreFilteredUsers.map((user) => (
+                searchedMoreFilterUsers.map((user) => (
                     <div key={user.id} className="sugg-user-container">
                         <div
                             className="sugg-user-details"
