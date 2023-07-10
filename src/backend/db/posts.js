@@ -8,7 +8,7 @@ import { formatDate } from "../utils/authUtils";
 
 export const posts = [
     {
-        _id: uuid(),
+        _id: "1",
         content:
             "Went out to a fine restaurant called Mezza9 this tuesday. The ambience is pretty good and the cocktails are superb.",
         likes: {
@@ -56,7 +56,7 @@ export const posts = [
         ],
     },
     {
-        _id: uuid(),
+        _id: "2",
         content:
             "Just witnessed another breathtaking display of brilliance from the 🐐 himself, Lionel Messi! The way he controls the game with his magical feet is a pure joy to watch. No wonder he's hailed as the greatest of all time. 🙌⚽️ #Messi #GOAT #FootballWizard",
         likes: {
@@ -104,7 +104,7 @@ export const posts = [
         ],
     },
     {
-        _id: uuid(),
+        _id: "3",
         content:
             "Just cleared the UPSC IAS exam and I'm on cloud nine! 🌟 The journey was tough, but every late-night study session and sacrifice paid off. Feeling incredibly grateful for the support and guidance that got me through this. Dreams do come true! 💪📚 #UPSC #IAS #DreamsComeTrue",
         likes: {
@@ -150,7 +150,7 @@ export const posts = [
         ],
     },
     {
-        _id: uuid(),
+        _id: "4",
         content:
             "🚀 Exciting times ahead in the world of technology! From AI and automation to blockchain and quantum computing, innovations are shaping our future in incredible ways. Buckle up, folks, because the tech revolution is just getting started! 🌐💡 #TechRevolution #Innovation #FutureTech",
         likes: {
