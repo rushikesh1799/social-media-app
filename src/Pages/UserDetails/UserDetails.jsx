@@ -97,7 +97,7 @@ const UserDetails = () => {
 
     useEffect(() => {
         fetchUserDetails();
-    }, [posts]);
+    }, [posts, userName]);
 
     const young_man_avatar =
         "https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png";
