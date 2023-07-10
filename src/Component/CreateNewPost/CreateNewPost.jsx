@@ -33,7 +33,7 @@ const CreateNewPost = () => {
                 {previewSource && (
                     <div className="media-container">
                         <img src={previewSource} className="input__img" />
-                        <div onClick={() => setPreviewSource(() => "")}>
+                        <div onClick={() => setPreviewSource("")}>
                             <i className="fa fa-times" aria-hidden="true"></i>
                         </div>
                     </div>
@@ -57,7 +57,7 @@ const CreateNewPost = () => {
                         onClick={() => {
                             handleAddPost(postContent, previewSource);
                             setPostContent("");
-                            setPreviewSource(() => "");
+                            setPreviewSource("");
                         }}
                         disabled={postContent.length === 0 ? true : false}
                     >
