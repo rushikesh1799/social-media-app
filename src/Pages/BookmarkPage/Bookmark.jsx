@@ -16,16 +16,15 @@ const Bookmark = () => {
 
     const allBookmarks = posts.filter((post) => bookmarks.includes(post._id));
 
-    console.log(allBookmarks);
+    // console.log(allBookmarks);
     return (
         <div>
             <Header />
             <div className="home-primary-container">
                 <Navigation />
                 <div className="bookmark-primary-container">
-                    <h1>Bookmark Page</h1>
                     {allBookmarks.length === 0 ? (
-                        <h2>No Bookmarks Found 😔</h2>
+                        <h2>You have not added any Bookmarks!</h2>
                     ) : (
                         allBookmarks.map((post) => (
                             <Post post={post} key={post._id} />
