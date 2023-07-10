@@ -84,3 +84,20 @@
     font-weight: 300;
 
 }
+
+.search__container {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px 0 rgba(58, 53, 65, .1);
+}
+
+.search__input {
+    width: 90%;
+    padding: 8px;
+    border: none;
+}
+
+.search__input:focus {
+    outline: none;
+}
