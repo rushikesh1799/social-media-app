@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
 import ReactPlayer from "react-player";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./Signup.css";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
@@ -11,6 +14,7 @@ const Signup = () => {
     const { setToken, setUser } = useContext(AuthContext);
     const { setLoading } = useContext(DataContext);
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [signUpInfo, setSignUpInfo] = useState({
         firstName: "",
         lastName: "",
@@ -21,36 +25,56 @@ const Signup = () => {
         profilePhoto:
             "https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-512.png",
         bio: "Hey there!",
-        website_link: "https://rushikeshbunge-portfolio.netlify.app/"
+        website_link: "https://rushikeshbunge-portfolio.netlify.app/",
     });
+
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const navigate = useNavigate();
 
     const handleSignUp = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        try {
-            setTimeout(async () => {
-                const {
-                    data: { encodedToken, createdUser },
-                } = await axios.post("/api/auth/signup", signUpInfo);
-                localStorage.setItem("token", encodedToken);
-                localStorage.setItem("user", JSON.stringify(createdUser));
 
-                setToken(encodedToken);
-                setUser(createdUser);
-                setLoading(false);
-            }, 500);
+        if (confirmPassword !== signUpInfo.password) {
+            notify();
+        } else {
+            setLoading(true);
+            try {
+                setTimeout(async () => {
+                    const {
+                        data: { encodedToken, createdUser },
+                    } = await axios.post("/api/auth/signup", signUpInfo);
+                    localStorage.setItem("token", encodedToken);
+                    localStorage.setItem("user", JSON.stringify(createdUser));
 
-            // console.log(createdUser);
-            navigate("/home");
-        } catch (error) {
-            if (error.response.status === 422) {
-                console.log("User already exists");
-            } else {
-                console.log(error);
+                    setToken(encodedToken);
+                    setUser(createdUser);
+                    setLoading(false);
+                }, 500);
+
+                // console.log(createdUser);
+                navigate("/home");
+            } catch (error) {
+                if (error.response.status === 422) {
+                    console.log("User already exists");
+                } else {
+                    console.log(error);
+                }
             }
         }
+    };
+
+    const notify = () => {
+        toast.warn("Password is not matching!", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     };
 
     // useEffect(() => {
@@ -59,6 +83,7 @@ const Signup = () => {
 
     return (
         <div className="page-container">
+            <ToastContainer />
             <section className="login-video-container">
                 <ReactPlayer
                     url="https://res.cloudinary.com/dwegb6a4s/video/upload/v1688355287/Video_for_social_media_Project_mk2kkg.mp4"
@@ -182,6 +207,39 @@ const Signup = () => {
                                     aria-hidden="true"
                                     onClick={() =>
                                         setShowPassword((prev) => !prev)
+                                    }
+                                ></i>
+                            )}
+                        </div>
+                    </div>
+                    <div className="signUp__form__field">
+                        <label>Confirm Password:</label>
+                        <div className="password__field">
+                            <input
+                                type={
+                                    !showConfirmPassword ? "password" : "text"
+                                }
+                                value={confirmPassword}
+                                placeholder="Enter your password again..."
+                                onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                }
+                                required
+                            />
+                            {!showConfirmPassword ? (
+                                <i
+                                    className="fa fa-eye-slash password__icon"
+                                    aria-hidden="true"
+                                    onClick={() =>
+                                        setShowConfirmPassword((prev) => !prev)
+                                    }
+                                ></i>
+                            ) : (
+                                <i
+                                    className="fa fa-eye password__icon"
+                                    aria-hidden="true"
+                                    onClick={() =>
+                                        setShowConfirmPassword((prev) => !prev)
                                     }
                                 ></i>
                             )}
