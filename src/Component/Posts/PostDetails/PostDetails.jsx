@@ -35,7 +35,7 @@ const PostDetails = () => {
 
     const post = posts.find((post) => post._id === postID);
 
-    console.log("postDetails Post", post);
+    // console.log("postDetails Post", post);
 
     // useEffect(() => {
     //     console.log("postID", postID);

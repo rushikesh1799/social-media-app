@@ -47,9 +47,9 @@ export const DataProvider = ({ children }) => {
     // destructuring of the initialState
     const { users, posts, category, bookmarks, filter } = state;
 
-    useEffect(() => {
-        console.log("users:", users);
-    }, [users]);
+    // useEffect(() => {
+    //     console.log("users:", users);
+    // }, [users]);
 
     // console.log("bookmarks", bookmarks);
 
@@ -134,7 +134,7 @@ export const DataProvider = ({ children }) => {
                 return followedUsersPosts;
                 // console.log("followedUsersPosts", followedUsersPosts);
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         }
     };
@@ -144,7 +144,7 @@ export const DataProvider = ({ children }) => {
     const handleGetSelectedUser = async (selectedUser) => {
         const result = await getSelectedUserDetail({ user: selectedUser });
         navigate(`/profile/${selectedUser?.username}`);
-        console.log("handleGetSelectedUser result", result);
+        // console.log("handleGetSelectedUser result", result);
     };
 
     const handleLike = async (post) => {
@@ -218,13 +218,13 @@ export const DataProvider = ({ children }) => {
     };
 
     const handleFollowUser = async (user) => {
-        console.log(user);
+        // console.log(user);
         const result = await followService({
             userid: user._id,
             encodedToken: token,
         });
         // const data = await result.json();
-        console.log("handleFollowUser", result);
+        // console.log("handleFollowUser", result);
 
         const newUsersArray = users.map((selectedUser) =>
             selectedUser.username === result.data.user.username
@@ -280,7 +280,7 @@ export const DataProvider = ({ children }) => {
             },
             encodedToken: token,
         });
-        console.log(result);
+        // console.log(result);
         dispatch({ type: "ADD_POSTS", payload: { posts: result.data.posts } });
     };
 
@@ -316,7 +316,7 @@ export const DataProvider = ({ children }) => {
                 : selectedUser
         );
 
-        console.log("newUpdatedUsers", newUpdatedUsers);
+        // console.log("newUpdatedUsers", newUpdatedUsers);
 
         if (result.status === 200 || result.status === 201) {
             dispatch({
@@ -335,7 +335,7 @@ export const DataProvider = ({ children }) => {
     };
 
     const handleFilters = (e) => {
-        console.log(e);
+        // console.log(e);
         dispatch({
             type: "SET_FILTER",
             payload: e.target.id,
@@ -344,7 +344,7 @@ export const DataProvider = ({ children }) => {
 
     const handlePostClick = async (post) => {
         const result = await getAllComments({ post: post });
-        console.log("Get Comments Result", result);
+        // console.log("Get Comments Result", result);
         navigate(`/post/${post._id}`);
     };
 
